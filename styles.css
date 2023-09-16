@@ -1,0 +1,46 @@
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #f1f1f1;
+  padding: 20px;
+  text-align: center;
+}
+
+.search-bar {
+  display: inline-block;
+}
+
+#searchInput {
+  padding: 5px;
+  font-size: 16px;
+}
+
+#productList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.product {
+  margin: 20px;
+  text-align: center;
+}
+
+.product img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.product-name {
+  margin: 10px 0;
+}
+
+.product-price {
+  font-weight: bold;
+}
