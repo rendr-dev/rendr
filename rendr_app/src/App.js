@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 const App = () => {
   const [inputValue, setInputValue] = useState('');
+  const [boundingBox, setBoundingBox] = useState(null);
 
   useEffect(() => {
     const iframe = document.getElementById('myIframe');
@@ -13,27 +14,44 @@ const App = () => {
     iframe.addEventListener('load', function () {
       const iframeDocument = iframe.contentWindow.document;
 
+      iframeDocument.addEventListener('mouseover', function(e) {
+          const { clientX, clientY } = e;
+          // Get the width and height of the clicked element
+          const width = e.target.clientWidth;
+          const height = e.target.clientHeight;
+          const offLeft = e.target.offsetLeft;
+          const offTop = e.target.offsetTop;
+
+          // Update the bounding box
+          // if (boundingBox) {
+          //   boundingBox.style.left = `${clientX}px`;
+          //   boundingBox.style.top = `${clientY}px`;
+          // } else {
+            // Create a new bounding box if it doesn't exist
+            const newBoundingBox = iframeDocument.createElement('div');
+            newBoundingBox.style.position = 'absolute';
+            newBoundingBox.style.border = '10px solid rgba(255, 0, 0, 0.3)';
+            newBoundingBox.style.pointerEvents = 'none';
+            newBoundingBox.style.left = `${offLeft}px`;
+            newBoundingBox.style.top = `${offTop}px`;
+            newBoundingBox.style.width = `${width}px`; // Adjust the width as needed
+            newBoundingBox.style.height = `${height}px`; // Adjust the height as needed
+            iframeDocument.body.appendChild(newBoundingBox);
+            setBoundingBox(newBoundingBox);
+          // }
+
+          console.log('offLeft:', offLeft);
+          console.log('offTop:', offTop);
+          console.log('Width:', width);
+          console.log('Height:', height);
+      });
+
       iframeDocument.addEventListener('click', function (e) {
 
         const { clientX, clientY } = e;
+        console.log(e);
 
         const clickedElement = document.elementFromPoint(clientX, clientY);
-        console.log(clickedElement);
-
-        // Calculate the X, Y coordinates relative to the clicked element
-        const rect = clickedElement.getBoundingClientRect();
-        console.log(rect);
-        const xRelativeToElement = clientX - rect.left;
-        const yRelativeToElement = clientY - rect.top;
-
-        // Get the width and height of the clicked element
-        const width = clickedElement.offsetWidth;
-        const height = clickedElement.offsetHeight;
-
-        console.log('X Coordinate (relative to element):', xRelativeToElement);
-        console.log('Y Coordinate (relative to element):', yRelativeToElement);
-        console.log('Width:', width);
-        console.log('Height:', height);
 
         // Remove existing text box if any
         const existingInput = iframeDocument.getElementById('dynamicInput');
@@ -84,10 +102,10 @@ const App = () => {
          analyzeDesigns.style.backgroundColor = '#FF99EF';
          analyzeDesigns.style.color = 'black';
 
+
         // Attach event to handle input
         inputElement.addEventListener('input', handleInput);
         // buttonElement.addEventListener('click', handleButton);
-        
 
         // Attach event to handle Enter key press
         inputElement.addEventListener('keydown', (event) => {
@@ -104,13 +122,11 @@ const App = () => {
         iframeDocument.body.appendChild(inputElement);
         iframeDocument.body.appendChild(suggestDesigns);
         iframeDocument.body.appendChild(analyzeDesigns);
-
         inputElement.focus();
-
       });
 
     });
-  }, []);
+  }, [boundingBox]);
 
   return (
     <div style={{ margin: 0, padding: 0 }}>
