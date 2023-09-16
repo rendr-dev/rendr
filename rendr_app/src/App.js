@@ -17,6 +17,24 @@ const App = () => {
 
         const { clientX, clientY } = e;
 
+        const clickedElement = document.elementFromPoint(clientX, clientY);
+        console.log(clickedElement);
+
+        // Calculate the X, Y coordinates relative to the clicked element
+        const rect = clickedElement.getBoundingClientRect();
+        console.log(rect);
+        const xRelativeToElement = clientX - rect.left;
+        const yRelativeToElement = clientY - rect.top;
+
+        // Get the width and height of the clicked element
+        const width = clickedElement.offsetWidth;
+        const height = clickedElement.offsetHeight;
+
+        console.log('X Coordinate (relative to element):', xRelativeToElement);
+        console.log('Y Coordinate (relative to element):', yRelativeToElement);
+        console.log('Width:', width);
+        console.log('Height:', height);
+
         // Remove existing text box if any
         const existingInput = iframeDocument.getElementById('dynamicInput');
         if (existingInput) existingInput.remove();
