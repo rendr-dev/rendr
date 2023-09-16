@@ -1,0 +1,82 @@
+
+/* Header styles */
+#header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+}
+
+/* About section styles */
+#about {
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+/* Subsection styles */
+section {
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin: 0 0 10px;
+}
+
+h3 {
+  margin: 0 0 10px;
+}
+
+/* Projects section styles */
+#projects {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
+}
+
+#project-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}
+
+.project {
+  background-color: #fff;
+  padding: 20px;
+}
+
+.project:nth-child(1) h3,
+.project:nth-child(2) h3,
+.project:nth-child(3) h3 {
+  margin-top: 0;
+}
+
+/* Contact section styles */
+#contact {
+  background-color: #e6e6e6;
+  padding: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+}
+
+input[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
