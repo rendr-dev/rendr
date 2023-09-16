@@ -44,6 +44,10 @@ def get_html_from_gpt(description):
             html_code = i
         elif (i[0:3] == "css"):
             css_code = i
+    # return (html_code, css_code)
+    if (html_code == "" or css_code == ""):
+        print(completion.choices[0].message.content.split("```"))
+        html_code, css_code = get_html_from_gpt(description)
     return (html_code, css_code)
     # print(completion.choices[0].message.content.split("```"))
     # if len(completion.choices[0].message.content.split("```")) == 1:
@@ -64,6 +68,34 @@ def open_html_in_browser(file_name):
     abs_path = os.path.abspath(file_name)
     webbrowser.open(f'file://{abs_path}')
 
+def edit_html(original_html_code, original_css_code, changes):
+    print("here")
+    html_code = ""
+    css_code = ""
+    prompt = "Original HTML: \n"
+    prompt += original_html_code
+    prompt += "\nOriginal CSS: \n"
+    prompt += original_css_code
+    prompt += "Please rewrite the html file and the css file with the following changes:"
+    prompt += changes
+    prompt += "\nReturn the entire HTML and the entire CSS files, with these changes."
+    completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt}
+        ]
+    )
+    for i in completion.choices[0].message.content.split("```"):
+        if (i[0:4] == "html"):
+            html_code = i
+        elif (i[0:3] == "css"):
+            css_code = i
+    if (html_code == "" or css_code == ""):
+        print(completion.choices[0].message.content.split("```"))
+        html_code, css_code = edit_html(original_html_code, original_css_code, changes)
+    return (html_code, css_code)
+
 if __name__ == "__main__":
     description = input()
     if description == "":
@@ -78,4 +110,11 @@ if __name__ == "__main__":
     open_html_in_browser(file_name)
     
     print(f"HTML code has been saved to {file_name} and opened in the default web browser.")
+    while True:
+        changes = input("changes? ")
+        if (changes == "exit"):
+            break
+        html_code, css_code = edit_html(html_code, css_code, changes)
+        save_html_to_file(html_code, css_code, file_name)
+        open_html_in_browser(file_name)
 
