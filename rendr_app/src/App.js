@@ -141,39 +141,66 @@ const App = () => {
         <div
           style={{
             position: "fixed",
-            right: 0,
-            top: 0,
+            right: "0%",
+            bottom: "0%",
             width: "50vw",
             height: "100vh",
-            backgroundColor: "rgba(255,255,255,0.8)",
+            backgroundColor: "rgba(0,148,255,0.95)",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
             animation: "fadeIn 0.5s",
+            borderRadius: "10px",
+            display: "flex",
+            flex: 1,
           }}
         >
-          <h1>Image Suggestions</h1>
-          <img src={imageUrl !== "null" ? imageUrl : null} />
-          <h1>Text Suggestions</h1>
-          <p>{textSuggestions !== "null" ? textSuggestions : null}</p>
-          <button
-            onClick={() => setShowPopup(false)}
-            style={{
-              padding: "10px",
-              borderRadius: "5px",
-              border: "2px solid #ccc",
-              backgroundColor: "#A2D2FF",
-              color: "black",
-              cursor: "pointer",
-              transition: "0.3s",
-              marginTop: "20px",
-            }}
-            onMouseOver={(e) => (e.target.style.opacity = "0.7")}
-            onMouseOut={(e) => (e.target.style.opacity = "1")}
-          >
-            Back
-          </button>
+          <div style={{ margin: "50px" }}>
+            <h1
+              style={{
+                color: "white",
+                marginTop: "10px",
+                textAlign: "center",
+              }}
+            >
+              Image Suggestions
+            </h1>
+            <img
+              src={imageUrl !== "null" ? imageUrl : null}
+              style={{ borderRadius: "10px", margin: "20px" }}
+            />
+            <h1
+              style={{ color: "white", marginTop: "10px", textAlign: "center" }}
+            >
+              Text Suggestions
+            </h1>
+            <p style={{ color: "white", marginTop: "10px", fontSize: 18 }}>
+              {textSuggestions !== "null" ? textSuggestions : null}
+            </p>
+            <button
+              onClick={() => setShowPopup(false)}
+              style={{
+                padding: "10px",
+                borderRadius: "5px",
+                border: "2px solid #ccc",
+                // backgroundColor: "#A2D2FF",
+                color: "black",
+                cursor: "pointer",
+                transition: "0.3s",
+                marginTop: "20px",
+                alignItems: "center",
+                textAlign: "center",
+                alignContent: "center",
+                alignSelf: "center",
+                fontSize: 18,
+              }}
+              onMouseOver={(e) => (e.target.style.opacity = "0.7")}
+              onMouseOut={(e) => (e.target.style.opacity = "1")}
+            >
+              Back
+            </button>
+          </div>
         </div>
       )}
       <div>Input Value in React: {inputValue}</div>
