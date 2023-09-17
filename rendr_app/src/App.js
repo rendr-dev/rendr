@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { BeatLoader } from "react-spinners"; // Importing one of the spinners
 
 const App = () => {
@@ -310,6 +310,27 @@ const App = () => {
       })
       .catch((error) => console.error("Error:", error));
   };
+  const downloadFile = (content, filename, contentType) => {
+    console.log("In download");
+    const blob = new Blob([content], { type: contentType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+  const handleKeyPress = useCallback((event) => {
+    // console.log(`Key pressed: ${event.key}`);
+    console.log(event.ctrlKey);
+    console.log(event.key);
+    if (event.ctrlKey && event.key == "x") {
+      downloadFile(document.getElementById("myIframe").contentWindow.document.documentElement.outerHTML, 'website.html', 'text/html');
+      downloadFile(cssString, 'styles.css', 'text/css');
+    }
+    // event.stopPropagation();
+    // event.preventDefault();
+  }, []);
 
   useEffect(() => {
     const iframe = document.getElementById("myIframe");
@@ -319,7 +340,8 @@ const App = () => {
 
     iframe.addEventListener("load", function () {
       const iframeDocument = iframe.contentWindow.document;
-
+      document.addEventListener("keydown", handleKeyPress);
+      iframeDocument.addEventListener('keydown', handleKeyPress);
       iframeDocument.addEventListener('mouseover', function(e) {
 
         if (['dynamicInput', 'dynamicButton', 'dynamicButton2'].includes(e.target.id)) {
@@ -331,11 +353,15 @@ const App = () => {
         const offLeft = e.target.offsetLeft;
         const offTop = e.target.offsetTop;
 
+        var existingBox = iframeDocument.querySelector('.boundingBox');
+        if (existingBox) {
+            existingBox.remove();
+        }
         // Update the bounding box
         const newBoundingBox = iframeDocument.createElement('div');
         newBoundingBox.style.position = 'absolute';
         newBoundingBox.style.border = '5px solid rgba(0, 148, 255, 0.5)';
-        newBoundingBox.style.backgroundColor = 'rgba(0, 148, 255, 0.1)';
+        newBoundingBox.style.backgroundColor = 'rgba(0, 148, 255, 0)';
         newBoundingBox.style.pointerEvents = 'none';
         newBoundingBox.style.left = `${offLeft - 10}px`;
         newBoundingBox.style.top = `${offTop - 10}px`;
@@ -346,7 +372,7 @@ const App = () => {
         setBoundingBox(newBoundingBox);
       
         // Remove any existing bounding boxes
-        const existingBox = iframeDocument.querySelector('.boundingBox');
+        existingBox = iframeDocument.querySelector('.boundingBox');
         if (existingBox) {
             existingBox.remove();
         }
@@ -369,11 +395,16 @@ const App = () => {
           return;
         }
 
-        // Update the bounding box
+        var existingBox = iframeDocument.querySelector(".boundingBox");
+        if (existingBox) {
+          existingBox.remove();
+        }
+
+        // // Update the bounding box
         const newBoundingBox = iframeDocument.createElement("div");
         newBoundingBox.style.position = "absolute";
         newBoundingBox.style.border = "5px solid rgba(0, 148, 255, 0.5)";
-        newBoundingBox.style.backgroundColor = "rgba(0, 148, 255, 0.1)";
+        newBoundingBox.style.backgroundColor = "rgba(0, 148, 255, 0)";
         newBoundingBox.style.pointerEvents = "none";
         newBoundingBox.style.left = `${offLeft - 10}px`;
         newBoundingBox.style.top = `${offTop - 10}px`;
@@ -385,7 +416,7 @@ const App = () => {
         
 
         // Remove any existing bounding boxes
-        const existingBox = iframeDocument.querySelector(".boundingBox");
+        existingBox = iframeDocument.querySelector('.boundingBox');
         if (existingBox) {
           existingBox.remove();
         }
@@ -580,10 +611,23 @@ const App = () => {
               // console.log('CSS Code:', data.css_code);
               e.target.innerHTML = data.html_code;
               cssString = data.css_code.toString()
-              // console.log(iframeDocument.documentElement.outerHTML);
-              let totalHtml = iframeDocument.documentElement.outerHTML;
-              setCombinedString(`${totalHtml}<style>${cssString}</style>`);
-              // console.log(combinedString);
+              console.log(iframeDocument.documentElement.outerHTML);
+              htmlString = iframeDocument.documentElement.outerHTML;
+              setCombinedString(`${htmlString}<style>${cssString}</style>`);
+              console.log(combinedString);
+              if (inputElement) {
+                inputElement.remove();
+              }
+              if (suggestionsButton) {
+                suggestionsButton.remove();
+              }
+              if (analyzeDesigns) {
+                analyzeDesigns.remove();
+              }
+              const existingBox = iframeDocument.querySelector('.boundingBox');
+              if (existingBox) {
+                  existingBox.remove();
+              }
 
             })
             .catch((error) => {
