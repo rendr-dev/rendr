@@ -93,6 +93,10 @@ const App = () => {
   section {
     margin-bottom: 20px;
   }
+
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
   
   h2 {
     margin: 0 0 10px;
@@ -453,33 +457,6 @@ const App = () => {
               Image Suggestions
             </h1>
             <div>
-              <button
-                onClick={prevImage}
-                disabled={currentImageIndex === 0}
-                style={{
-                  padding: "10px 15px",
-                  backgroundColor: "#4A90E2",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "50%",
-                  fontSize: "20px",
-                  marginRight: "10px",
-                  transition: "opacity 0.3s, transform 0.3s",
-                  cursor: currentImageIndex === 0 ? "not-allowed" : "pointer",
-                }}
-                onMouseOver={(e) => {
-                  if (currentImageIndex !== 0) {
-                    e.target.style.opacity = "0.7";
-                    e.target.style.transform = "scale(1.05)";
-                  }
-                }}
-                onMouseOut={(e) => {
-                  e.target.style.opacity = "1";
-                  e.target.style.transform = "scale(1)";
-                }}
-              >
-                ←
-              </button>{" "}
               {/* Disable if we're at the first image */}
               {getCurrentImageUrl() === null ? (
                 <div
@@ -508,33 +485,63 @@ const App = () => {
                   />
                 </div>
               ) : null}
-              <button
-                onClick={nextImage}
-                disabled={currentImageIndex === 2}
-                style={{
-                  padding: "10px 15px",
-                  backgroundColor: "#4A90E2",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "50%",
-                  fontSize: "20px",
-                  marginLeft: "10px",
-                  transition: "opacity 0.3s, transform 0.3s",
-                  cursor: currentImageIndex === 2 ? "not-allowed" : "pointer",
-                }}
-                onMouseOver={(e) => {
-                  if (currentImageIndex !== 2) {
-                    e.target.style.opacity = "0.7";
-                    e.target.style.transform = "scale(1.05)";
-                  }
-                }}
-                onMouseOut={(e) => {
-                  e.target.style.opacity = "1";
-                  e.target.style.transform = "scale(1)";
-                }}
-              >
-                →
-              </button>{" "}
+               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              
+                <button
+                  onClick={prevImage}
+                  disabled={currentImageIndex === 0}
+                  style={{
+                    padding: "10px 15px",
+                    backgroundColor: "#0094FF",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "10px",
+                    fontSize: "20px",
+                    marginRight: "10px",
+                    transition: "opacity 0.3s, transform 0.3s",
+                    cursor: currentImageIndex === 0 ? "not-allowed" : "pointer",
+                  }}
+                  onMouseOver={(e) => {
+                    if (currentImageIndex !== 0) {
+                      e.target.style.opacity = "0.7";
+                      e.target.style.transform = "scale(1.05)";
+                    }
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.opacity = "1";
+                    e.target.style.transform = "scale(1)";
+                  }}
+                >
+                  ←
+                </button>{" "}
+                <button
+                  onClick={nextImage}
+                  disabled={currentImageIndex === 2}
+                  style={{
+                    padding: "10px 15px",
+                    backgroundColor: "#0094FF",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "10px",
+                    fontSize: "20px",
+                    marginLeft: "10px",
+                    transition: "opacity 0.3s, transform 0.3s",
+                    cursor: currentImageIndex === 2 ? "not-allowed" : "pointer",
+                  }}
+                  onMouseOver={(e) => {
+                    if (currentImageIndex !== 2) {
+                      e.target.style.opacity = "0.7";
+                      e.target.style.transform = "scale(1.05)";
+                    }
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.opacity = "1";
+                    e.target.style.transform = "scale(1)";
+                  }}
+                >
+                  →
+                </button>{" "}
+              </div>
               {/* Disable if we're at the last image */}
             </div>
 
@@ -588,9 +595,9 @@ const App = () => {
               display: "block",
               margin: "30px auto 0",
               padding: "10px 30px",
-              borderRadius: "25px",
+              borderRadius: "10px",
               border: "none",
-              backgroundColor: "#4A90E2",
+              backgroundColor: "#0094FF",
               color: "white",
               fontSize: "18px",
               cursor: "pointer",
