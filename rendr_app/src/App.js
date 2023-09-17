@@ -354,7 +354,7 @@ const App = () => {
         analyzeDesigns.id = 'dynamicButton';
         analyzeDesigns.innerHTML = '&#x1f50d Analyze UI/UX';
         analyzeDesigns.style.position = 'absolute';
-        analyzeDesigns.style.left = `${offLeft + 385}px`;  // Adjusted the button's position to give space between buttons
+        analyzeDesigns.style.left = `${offLeft + 390}px`;  // Adjusted the button's position to give space between buttons
         analyzeDesigns.style.top = `${(offTop - 60) >= 0 ? offTop - 60 : offTop + height + 20}px`;
         analyzeDesigns.style.border = '2px solid #FF99EF';
         analyzeDesigns.style.padding = '10px 15px';
@@ -371,7 +371,7 @@ const App = () => {
         suggestionsButton.id = "dynamicButton2";
         suggestionsButton.innerHTML = "&#x1f3a8 Suggest Designs";
         suggestionsButton.style.position = "absolute";
-        suggestionsButton.style.left = `${offLeft + 235}px`;
+        suggestionsButton.style.left = `${offLeft + 232}px`;
         suggestionsButton.style.top = `${
           offTop - 60 >= 0 ? offTop - 60 : offTop + height + 20
         }px`;
@@ -385,6 +385,34 @@ const App = () => {
           event.stopPropagation();
           setShowPopup(true);
           sendToPython();
+        });
+
+        analyzeDesigns.style.transition = 'all 0.3s ease'; // Add smooth transition effect
+        analyzeDesigns.addEventListener('mouseover', function() {
+            this.style.backgroundColor = '#FFB0E6';
+            this.style.borderColor = '#FF66D9';
+            this.style.boxShadow = '0px 5px 15px rgba(0, 0, 0, 0.2)'; // Adds a shadow effect
+            this.style.transform = 'scale(1.05)'; // Scale up the button slightly
+        });
+        analyzeDesigns.addEventListener('mouseout', function() {
+            this.style.backgroundColor = '#FFD1F7';
+            this.style.borderColor = '#FF99EF';
+            this.style.boxShadow = 'none'; // Remove the shadow effect
+            this.style.transform = 'scale(1)'; // Reset the scale to default
+        });
+
+        suggestionsButton.style.transition = 'all 0.3s ease';
+        suggestionsButton.addEventListener('mouseover', function() {
+            this.style.backgroundColor = '#AFFF33';
+            this.style.borderColor = '#9EDD00';
+            this.style.boxShadow = '0px 5px 15px rgba(0, 0, 0, 0.2)';
+            this.style.transform = 'scale(1.05)';
+        });
+        suggestionsButton.addEventListener('mouseout', function() {
+            this.style.backgroundColor = '#C9FF55';
+            this.style.borderColor = '#C9FF55';
+            this.style.boxShadow = 'none';
+            this.style.transform = 'scale(1)';
         });
 
         // Attach event to handle Enter key press
