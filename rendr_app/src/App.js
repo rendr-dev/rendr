@@ -302,7 +302,7 @@ const App = () => {
     })
       .then((response) => response.json()) // Assuming server responds with json
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setImageUrl(data.image_url);
         setImageUrl2(data.image_url2); // TODO: Remove this line
         setImageUrl3(data.image_url3); // TODO: Remove this line
@@ -359,7 +359,7 @@ const App = () => {
 
       iframeDocument.addEventListener('click', function (e) {
         const { clientX, clientY } = e;
-        console.log(e.target);
+        // console.log(e.target);
         const width = e.target.clientWidth;
         const height = e.target.clientHeight;
         const offLeft = e.target.offsetLeft;
@@ -387,7 +387,6 @@ const App = () => {
         // Remove any existing bounding boxes
         const existingBox = iframeDocument.querySelector(".boundingBox");
         if (existingBox) {
-          console.log("existing box!!")
           existingBox.remove();
         }
         // Attach mouseout event to the hovered element
@@ -536,14 +535,14 @@ const App = () => {
             })
               .then((response) => response.json())
               .then((data) => {
-                console.log("HTML Code:", data.html_code);
-                console.log("CSS Code:", data.css_code);
+                // console.log("HTML Code:", data.html_code);
+                // console.log("CSS Code:", data.css_code);
                 e.target.innerHTML = data.html_code;
                 cssString = data.css_code.toString();
-                console.log(iframeDocument.documentElement.outerHTML);
+                // console.log(iframeDocument.documentElement.outerHTML);
                 let totalHtml = iframeDocument.documentElement.outerHTML;
                 setCombinedString(`${totalHtml}<style>${cssString}</style>`);
-                console.log(combinedString);
+                // console.log(combinedString);
               })
               .catch((error) => {
                 console.error("Error:", error);
@@ -577,14 +576,14 @@ const App = () => {
             })
             .then((response) => response.json())
             .then((data) => {
-              console.log('HTML Code:', data.html_code);
-              console.log('CSS Code:', data.css_code);
+              // console.log('HTML Code:', data.html_code);
+              // console.log('CSS Code:', data.css_code);
               e.target.innerHTML = data.html_code;
               cssString = data.css_code.toString()
-              console.log(iframeDocument.documentElement.outerHTML);
+              // console.log(iframeDocument.documentElement.outerHTML);
               let totalHtml = iframeDocument.documentElement.outerHTML;
               setCombinedString(`${totalHtml}<style>${cssString}</style>`);
-              console.log(combinedString);
+              // console.log(combinedString);
 
             })
             .catch((error) => {
