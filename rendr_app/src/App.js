@@ -1,6 +1,160 @@
 import React, { useEffect, useState } from 'react';
 
 const App = () => {
+
+  const htmlString = `
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Portfolio</title>
+  </head>
+  <body>
+    <header id="header">
+      <h1>My Portfolio</h1>
+    </header>
+  
+    <section id="about">
+      <h2>About Me</h2>
+      <section id="interest">
+        <h3>Interest in Machine Learning</h3>
+        <p>I have a strong passion for machine learning and enjoy exploring its various applications in different fields.</p>
+      </section>
+  
+      <section id="work">
+        <h3>Past Work at Google Research on Plate Reconstruction</h3>
+        <p>During my time at Google Research, I had the opportunity to work on plate reconstruction techniques to improve the accuracy and efficiency of the process.</p>
+      </section>
+  
+      <section id="projects">
+        <h2>Projects</h2>
+        <div id="project-container">
+          <div class="project">
+            <h3>Plate Reconstruction Algorithm</h3>
+            <p>This project involved developing a plate reconstruction algorithm using Convolutional Neural Networks (CNNs) to enhance the accuracy and speed of the process.</p>
+          </div>
+          <div class="project">
+            <h3>Lung Cancer Diagnosis Synthetic Data Generation</h3>
+            <p>In this project, I utilized CTGANs to generate synthetic data for lung cancer diagnosis, enabling researchers to train and test machine learning models without compromising patient privacy.</p>
+          </div>
+          <div class="project">
+            <h3>Calorie Tracker and Personalized Fitness Scheduler</h3>
+            <p>For this project, I designed and implemented an ML-based application that tracks calorie intake, monitors fitness goals, and generates personalized workout schedules based on user preferences and progress.</p>
+          </div>
+        </div>
+      </section>
+  
+      <section id="hobby">
+        <h3>Hobby for University of Texas (Longhorn) Football</h3>
+        <p>As a Longhorn fan, I always make sure to catch the football games and support the team.</p>
+      </section>
+    </section>
+  
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+        
+        <label for="message">Message:</label>
+        <textarea id="message" name="message"></textarea>
+        
+        <input type="submit" value="Send">
+      </form>
+    </section>
+  </body>
+  </html>
+  `;
+  const cssString = `<style>${`
+  /* Header styles */
+  #header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  h1 {
+    margin: 0;
+  }
+  
+  /* About section styles */
+  #about {
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  
+  /* Subsection styles */
+  section {
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    margin: 0 0 10px;
+  }
+  
+  h3 {
+    margin: 0 0 10px;
+  }
+  
+  /* Projects section styles */
+  #projects {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+  }
+  
+  #project-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+  }
+  
+  .project {
+    background-color: #fff;
+    padding: 20px;
+  }
+  
+  .project:nth-child(1) h3,
+  .project:nth-child(2) h3,
+  .project:nth-child(3) h3 {
+    margin-top: 0;
+  }
+  
+  /* Contact section styles */
+  #contact {
+    background-color: #e6e6e6;
+    padding: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+  }
+  
+  input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  `}</style>`;
+  const combinedString = `${htmlString}${cssString}`;
+
   const [inputValue, setInputValue] = useState('');
   const [boundingBox, setBoundingBox] = useState(null);
 
@@ -47,6 +201,8 @@ const App = () => {
 
       iframeDocument.addEventListener('click', function (e) {
         const { clientX, clientY } = e;
+        console.log(e.target);
+        
 
         // Remove existing text box if any
         const existingInput = iframeDocument.getElementById('dynamicInput');
@@ -109,6 +265,25 @@ const App = () => {
               suggestDesigns.remove();
               analyzeDesigns.remove()
             }
+            fetch('http://localhost:5000/get/edit', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ description: inputElement.value.trim() , original_html_code: e.target.innerHTML, original_css_code: cssString}),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log('HTML Code:', data.html_code);
+              console.log('CSS Code:', data.css_code);
+              e.target.innerHTML = data.html_code;
+              cssString = data.css_code
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+
+            // e.target.innerHTML = "<h1>HELLO</h1>";
           }
         });
 
@@ -125,7 +300,8 @@ const App = () => {
     <div style={{ margin: 0, padding: 0 }}>
       <iframe
         id="myIframe"
-        src="website.html"
+        // src="website.html"
+        srcDoc={combinedString}
         style={{
           position: "relative",
           width: '100vw',
