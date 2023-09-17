@@ -83,6 +83,8 @@ const App = () => {
         suggestDesigns.style.backgroundColor = '#C9FF55';
         suggestDesigns.style.color = 'black';
 
+        
+
         const analyzeButton = iframeDocument.getElementById('dynamicButton');
         if (analyzeButton) analyzeButton.remove();
         // Create analyze design button
