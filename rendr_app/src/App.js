@@ -15,6 +15,11 @@ const App = () => {
       const iframeDocument = iframe.contentWindow.document;
 
       iframeDocument.addEventListener('mouseover', function(e) {
+
+        if (['dynamicInput', 'dynamicButton', 'dynamicButton2'].includes(e.target.id)) {
+          return;
+        }
+        
         const width = e.target.clientWidth;
         const height = e.target.clientHeight;
         const offLeft = e.target.offsetLeft;
@@ -49,6 +54,10 @@ const App = () => {
       iframeDocument.addEventListener('click', function (e) {
         const { clientX, clientY } = e;
 
+        if (['dynamicInput', 'dynamicButton', 'dynamicButton2'].includes(e.target.id)) {
+          return;
+        }
+
         // Remove existing text box if any
         const existingInput = iframeDocument.getElementById('dynamicInput');
         if (existingInput) existingInput.remove();
@@ -62,26 +71,27 @@ const App = () => {
         inputElement.id = 'dynamicInput';
         inputElement.style.width = '200px'; // Adjust the width as needed
         inputElement.style.padding = '10px';
-        inputElement.style.border = '2px solid #ccc';
-        inputElement.style.borderRadius = '4px';
+        inputElement.style.border = '2px solid #FFC803'; 
+        inputElement.style.borderRadius = '8px';
         inputElement.style.backgroundColor = '#FFC803';
         inputElement.style.color = 'black';
         inputElement.placeholder = '📝 Type a design prompt here...';
 
-        const existingButton = iframeDocument.getElementById('dynamicButton');
+        const existingButton = iframeDocument.getElementById('dynamicButton2');
         if (existingButton) existingButton.remove();
         // Create suggest designs button
         const suggestDesigns = iframeDocument.createElement('button');
-        suggestDesigns.id = 'dynamicButton';
+        suggestDesigns.id = 'dynamicButton2';
         suggestDesigns.innerHTML = '&#x1f3a8 Suggest Designs'; 
         suggestDesigns.style.position = 'absolute';
-        suggestDesigns.style.left = `${clientX + 180}px`; // Adjust the button position as needed
+        suggestDesigns.style.left = `${clientX + 230}px`;
         suggestDesigns.style.top = `${clientY - 50}px`;
-        suggestDesigns.style.border = '2px solid #ccc';
-        suggestDesigns.style.padding = '10px';
-        suggestDesigns.style.borderRadius = '5px';
+        suggestDesigns.style.border = '2px solid #C9FF55';
+        suggestDesigns.style.padding = '10px 15px';
+        suggestDesigns.style.borderRadius = '8px';
         suggestDesigns.style.backgroundColor = '#C9FF55';
         suggestDesigns.style.color = 'black';
+        suggestDesigns.style.cursor = 'pointer';
 
         
 
@@ -92,13 +102,15 @@ const App = () => {
         analyzeDesigns.id = 'dynamicButton';
         analyzeDesigns.innerHTML = '&#x1f50d Analyze UI/UX';
         analyzeDesigns.style.position = 'absolute';
-        analyzeDesigns.style.left = `${clientX + 300}px`; // Adjust the button position as needed
-        analyzeDesigns.style.top = `${clientY - 50 }px`;
-        analyzeDesigns.style.border = '2px solid #ccc';
-        analyzeDesigns.style.padding = '10px';
-        analyzeDesigns.style.borderRadius = '5px';
-        analyzeDesigns.style.backgroundColor = '#FF99EF';
+        analyzeDesigns.style.left = `${clientX + 385}px`;  // Adjusted the button's position to give space between buttons
+        analyzeDesigns.style.top = `${clientY - 50}px`;
+        analyzeDesigns.style.border = '2px solid #FF99EF';
+        analyzeDesigns.style.padding = '10px 15px';
+        analyzeDesigns.style.borderRadius = '8px';
+        analyzeDesigns.style.backgroundColor = '#FFD1F7';
         analyzeDesigns.style.color = 'black';
+        analyzeDesigns.style.cursor = 'pointer';
+
 
         // Attach event to handle input
         inputElement.addEventListener('input', handleInput);
