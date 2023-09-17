@@ -23,12 +23,13 @@ const App = () => {
         // Update the bounding box
         const newBoundingBox = iframeDocument.createElement('div');
         newBoundingBox.style.position = 'absolute';
-        newBoundingBox.style.border = '5px solid rgba(0, 148, 255, 0.3)';
+        newBoundingBox.style.border = '5px solid rgba(0, 148, 255, 0.5)';
+        newBoundingBox.style.backgroundColor = 'rgba(0, 148, 255, 0.1)';
         newBoundingBox.style.pointerEvents = 'none';
-        newBoundingBox.style.left = `${offLeft}px`;
-        newBoundingBox.style.top = `${offTop}px`;
-        newBoundingBox.style.width = `${width}px`; // Adjust the width as needed
-        newBoundingBox.style.height = `${height}px`; // Adjust the height as needed
+        newBoundingBox.style.left = `${offLeft - 10}px`;
+        newBoundingBox.style.top = `${offTop - 10}px`;
+        newBoundingBox.style.width = `${width + 10}px`; // Adjust the width as needed
+        newBoundingBox.style.height = `${height + 10}px`; // Adjust the height as needed
         newBoundingBox.style.borderRadius = '10px';
         iframeDocument.body.appendChild(newBoundingBox);
         setBoundingBox(newBoundingBox);
@@ -59,20 +60,20 @@ const App = () => {
         inputElement.style.left = `${clientX}px`;
         inputElement.style.top = `${clientY - 50}px`;
         inputElement.id = 'dynamicInput';
-        inputElement.style.width = '150px'; // Adjust the width as needed
+        inputElement.style.width = '200px'; // Adjust the width as needed
         inputElement.style.padding = '10px';
         inputElement.style.border = '2px solid #ccc';
         inputElement.style.borderRadius = '4px';
         inputElement.style.backgroundColor = '#FFC803';
         inputElement.style.color = 'black';
-        inputElement.placeholder = 'Type a design prompt here...';
+        inputElement.placeholder = '📝 Type a design prompt here...';
 
         const existingButton = iframeDocument.getElementById('dynamicButton');
         if (existingButton) existingButton.remove();
         // Create suggest designs button
         const suggestDesigns = iframeDocument.createElement('button');
         suggestDesigns.id = 'dynamicButton';
-        suggestDesigns.textContent = 'Suggest Designs';
+        suggestDesigns.innerHTML = '&#x1f3a8 Suggest Designs'; 
         suggestDesigns.style.position = 'absolute';
         suggestDesigns.style.left = `${clientX + 180}px`; // Adjust the button position as needed
         suggestDesigns.style.top = `${clientY - 50}px`;
@@ -87,7 +88,7 @@ const App = () => {
         // Create analyze design button
         const analyzeDesigns = iframeDocument.createElement('button');
         analyzeDesigns.id = 'dynamicButton';
-        analyzeDesigns.textContent = 'Analyze UI/UX';
+        analyzeDesigns.innerHTML = '&#x1f50d Analyze UI/UX';
         analyzeDesigns.style.position = 'absolute';
         analyzeDesigns.style.left = `${clientX + 300}px`; // Adjust the button position as needed
         analyzeDesigns.style.top = `${clientY - 50 }px`;
