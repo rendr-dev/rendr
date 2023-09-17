@@ -2,6 +2,157 @@ import React, { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners"; // Importing one of the spinners
 
 const App = () => {
+  var htmlString = `
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Portfolio</title>
+  </head>
+  <body>
+    <header id="header">
+      <h1>My Portfolio</h1>
+    </header>
+  
+    <section id="about">
+      <h2>About Me</h2>
+      <section id="interest">
+        <h3>Interest in Machine Learning</h3>
+        <p>I have a strong passion for machine learning and enjoy exploring its various applications in different fields.</p>
+      </section>
+  
+      <section id="work">
+        <h3>Past Work at Google Research on Plate Reconstruction</h3>
+        <p>During my time at Google Research, I had the opportunity to work on plate reconstruction techniques to improve the accuracy and efficiency of the process.</p>
+      </section>
+  
+      <section id="projects">
+        <h2>Projects</h2>
+        <div id="project-container">
+          <div class="project">
+            <h3>Plate Reconstruction Algorithm</h3>
+            <p>This project involved developing a plate reconstruction algorithm using Convolutional Neural Networks (CNNs) to enhance the accuracy and speed of the process.</p>
+          </div>
+          <div class="project">
+            <h3>Lung Cancer Diagnosis Synthetic Data Generation</h3>
+            <p>In this project, I utilized CTGANs to generate synthetic data for lung cancer diagnosis, enabling researchers to train and test machine learning models without compromising patient privacy.</p>
+          </div>
+          <div class="project">
+            <h3>Calorie Tracker and Personalized Fitness Scheduler</h3>
+            <p>For this project, I designed and implemented an ML-based application that tracks calorie intake, monitors fitness goals, and generates personalized workout schedules based on user preferences and progress.</p>
+          </div>
+        </div>
+      </section>
+  
+      <section id="hobby">
+        <h3>Hobby for University of Texas (Longhorn) Football</h3>
+        <p>As a Longhorn fan, I always make sure to catch the football games and support the team.</p>
+      </section>
+    </section>
+  
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+        
+        <label for="message">Message:</label>
+        <textarea id="message" name="message"></textarea>
+        
+        <input type="submit" value="Send">
+      </form>
+    </section>
+  </body>
+  </html>
+  `;
+  var cssString = `
+  /* Header styles */
+  #header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  h1 {
+    margin: 0;
+  }
+  
+  /* About section styles */
+  #about {
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  
+  /* Subsection styles */
+  section {
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    margin: 0 0 10px;
+  }
+  
+  h3 {
+    margin: 0 0 10px;
+  }
+  
+  /* Projects section styles */
+  #projects {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+  }
+  
+  #project-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+  }
+  
+  .project {
+    background-color: #fff;
+    padding: 20px;
+  }
+  
+  .project:nth-child(1) h3,
+  .project:nth-child(2) h3,
+  .project:nth-child(3) h3 {
+    margin-top: 0;
+  }
+  
+  /* Contact section styles */
+  #contact {
+    background-color: #e6e6e6;
+    padding: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+  }
+  
+  input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  `;
   const [inputValue, setInputValue] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);
@@ -9,6 +160,10 @@ const App = () => {
   const [imageUrl3, setImageUrl3] = useState(null); // TODO: Remove this line
   const [textSuggestions, setTextSuggestions] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [boundingBox, setBoundingBox] = useState(null);
+  const [combinedString, setCombinedString] = useState(
+    `${htmlString}<style>${cssString}</style>`
+  );
 
   // Function to switch to the next image
   const nextImage = () => {
@@ -59,107 +214,205 @@ const App = () => {
 
   useEffect(() => {
     const iframe = document.getElementById("myIframe");
-    let inputElement;
-    let enterButton;
-    let suggestionsButton;
-
     const handleInput = (e) => {
       setInputValue(e.target.value);
-    };
-
-    const handleEnterButton = (e) => {
-      e.preventDefault();
-      if (inputElement && inputElement.value.trim() === "") {
-        inputElement.remove();
-        enterButton.remove();
-        suggestionsButton.remove();
-      }
     };
 
     iframe.addEventListener("load", function () {
       const iframeDocument = iframe.contentWindow.document;
 
-      iframeDocument.addEventListener("dblclick", function (e) {
-        console.log(e.target); // TODO: Remove this line
+      iframeDocument.addEventListener("mouseover", function (e) {
+        if (
+          ["dynamicInput", "dynamicButton", "dynamicButton2"].includes(
+            e.target.id
+          )
+        ) {
+          return;
+        }
 
-        // TODO: change this to send it to the backend instead
+        const width = e.target.clientWidth;
+        const height = e.target.clientHeight;
+        const offLeft = e.target.offsetLeft;
+        const offTop = e.target.offsetTop;
 
+        // Update the bounding box
+        const newBoundingBox = iframeDocument.createElement("div");
+        newBoundingBox.style.position = "absolute";
+        newBoundingBox.style.border = "5px solid rgba(0, 148, 255, 0.5)";
+        newBoundingBox.style.backgroundColor = "rgba(0, 148, 255, 0.1)";
+        newBoundingBox.style.pointerEvents = "none";
+        newBoundingBox.style.left = `${offLeft - 10}px`;
+        newBoundingBox.style.top = `${offTop - 10}px`;
+        newBoundingBox.style.width = `${width + 10}px`; // Adjust the width as needed
+        newBoundingBox.style.height = `${height + 10}px`; // Adjust the height as needed
+        newBoundingBox.style.borderRadius = "10px";
+        iframeDocument.body.appendChild(newBoundingBox);
+        setBoundingBox(newBoundingBox);
+
+        // Remove any existing bounding boxes
+        const existingBox = iframeDocument.querySelector(".boundingBox");
+        if (existingBox) {
+          existingBox.remove();
+        }
+        // Attach mouseout event to the hovered element
+        e.target.addEventListener(
+          "mouseout",
+          function () {
+            newBoundingBox.remove();
+          },
+          { once: true }
+        ); // This ensures the listener is removed after executing once
+      });
+
+      // Click
+      iframeDocument.addEventListener("click", function (e) {
         const elementString = e.target.outerHTML;
         localStorage.setItem("clickedElement", elementString);
 
-        const { clientX, clientY } = e;
-        // Remove existing elements if they exist
-        [
-          "dynamicInput",
-          "dynamicEnterButton",
-          "dynamicSuggestionsButton",
-        ].forEach((id) => {
-          const existingElement = iframeDocument.getElementById(id);
-          if (existingElement) existingElement.remove();
-        });
+        const width = e.target.clientWidth;
+        const height = e.target.clientHeight;
+        const offLeft = e.target.offsetLeft;
+        const offTop = e.target.offsetTop;
 
-        // Create and configure inputElement
-        inputElement = iframeDocument.createElement("input");
+        if (
+          ["dynamicInput", "dynamicButton", "dynamicButton2"].includes(
+            e.target.id
+          )
+        ) {
+          return;
+        }
+
+        // Remove existing elements if they exist
+        // ["dynamicInput", "dynamicButton", "dynamicButton2"].forEach((id) => {
+        //   const existingElement = iframeDocument.getElementById(id);
+        //   if (existingElement) existingElement.remove();
+        // });
+
+        const existingInput = iframeDocument.getElementById("dynamicInput");
+        if (existingInput) existingInput.remove();
+
+        // Create new text box
+        const inputElement = iframeDocument.createElement("input");
         inputElement.type = "text";
         inputElement.style.position = "absolute";
-        inputElement.style.left = `${clientX}px`;
-        inputElement.style.top = `${clientY - 50}px`;
+        inputElement.style.left = `${offLeft}px`;
+        inputElement.style.top = `${
+          offTop - 60 >= 0 ? offTop - 60 : offTop + height + 20
+        }px`;
         inputElement.id = "dynamicInput";
-        inputElement.style.width = "150px";
+        inputElement.style.width = "200px"; // Adjust the width as needed
         inputElement.style.padding = "10px";
-        inputElement.style.border = "2px solid #ccc";
-        inputElement.style.borderRadius = "4px";
-        inputElement.placeholder = "Type a design prompt here...";
+        inputElement.style.border = "2px solid #FFC803";
+        inputElement.style.borderRadius = "8px";
         inputElement.style.backgroundColor = "#FFC803";
         inputElement.style.color = "black";
-        inputElement.placeholder = "Type a design prompt here...";
-        inputElement.addEventListener("input", handleInput);
+        inputElement.placeholder = "📝 Type a design prompt here...";
+
+        const existingButton = iframeDocument.getElementById("dynamicButton2");
+        if (existingButton) existingButton.remove();
 
         // Create and configure suggestionsButton
-        suggestionsButton = iframeDocument.createElement("button");
-        suggestionsButton.id = "dynamicSuggestionsButton";
-        suggestionsButton.textContent = "AI Suggestions";
+        const suggestionsButton = iframeDocument.createElement("button");
+        suggestionsButton.id = "dynamicButton2";
+        suggestionsButton.innerHTML = "&#x1f3a8 Suggest Designs";
         suggestionsButton.style.position = "absolute";
-        suggestionsButton.style.left = `${clientX + 180}px`;
-        suggestionsButton.style.top = `${clientY - 50}px`;
-        suggestionsButton.style.border = "2px solid #ccc";
-        suggestionsButton.style.padding = "10px";
-        suggestionsButton.style.borderRadius = "5px";
+        suggestionsButton.style.left = `${offLeft + 235}px`;
+        suggestionsButton.style.top = `${
+          offTop - 60 >= 0 ? offTop - 60 : offTop + height + 20
+        }px`;
+        suggestionsButton.style.border = "2px solid #C9FF55";
+        suggestionsButton.style.padding = "10px 15px";
+        suggestionsButton.style.borderRadius = "8px";
         suggestionsButton.style.backgroundColor = "#C9FF55";
         suggestionsButton.style.color = "black";
+        suggestionsButton.style.cursor = "pointer";
         suggestionsButton.addEventListener("click", (event) => {
           event.stopPropagation();
           setShowPopup(true);
           sendToPython();
         });
 
-        // Create and configure enterButton
-        enterButton = iframeDocument.createElement("button");
-        enterButton.id = "dynamicEnterButton";
-        enterButton.textContent = "Enter";
-        enterButton.style.position = "absolute";
-        enterButton.style.left = `${clientX + 300}px`; // Adjust the button position as needed
-        enterButton.style.top = `${clientY - 50}px`;
-        enterButton.style.border = "2px solid #ccc";
-        enterButton.style.padding = "10px";
-        enterButton.style.borderRadius = "5px";
-        enterButton.style.backgroundColor = "#FF99EF";
-        enterButton.style.color = "black";
-        enterButton.addEventListener("click", handleEnterButton);
+        const analyzeButton = iframeDocument.getElementById("dynamicButton");
+        if (analyzeButton) analyzeButton.remove();
+        // Create analyze design button
+        const analyzeDesigns = iframeDocument.createElement("button");
+        analyzeDesigns.id = "dynamicButton";
+        analyzeDesigns.innerHTML = "&#x1f50d Analyze UI/UX";
+        analyzeDesigns.style.position = "absolute";
+        analyzeDesigns.style.left = `${offLeft + 400}px`; // Adjusted the button's position to give space between buttons
+        analyzeDesigns.style.top = `${
+          offTop - 60 >= 0 ? offTop - 60 : offTop + height + 20
+        }px`;
+        analyzeDesigns.style.border = "2px solid #FF99EF";
+        analyzeDesigns.style.padding = "10px 15px";
+        analyzeDesigns.style.borderRadius = "8px";
+        analyzeDesigns.style.backgroundColor = "#FFD1F7";
+        analyzeDesigns.style.color = "black";
+        analyzeDesigns.style.cursor = "pointer";
+
+        // Attach event to handle Enter key press
+        inputElement.addEventListener("keydown", (event) => {
+          if (event.key === "Enter") {
+            if (
+              inputElement &&
+              suggestionsButton &&
+              inputElement.value.trim() === ""
+            ) {
+              // If input is empty on Enter, remove the input element
+              inputElement.remove();
+              suggestionsButton.remove();
+              analyzeDesigns.remove();
+            }
+            fetch("http://localhost:5000/get/edit", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                description: inputElement.value.trim(),
+                original_html_code: e.target.innerHTML,
+                original_css_code: cssString,
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log("HTML Code:", data.html_code);
+                console.log("CSS Code:", data.css_code);
+                e.target.innerHTML = data.html_code;
+                cssString = data.css_code.toString();
+                console.log(iframeDocument.documentElement.outerHTML);
+                let totalHtml = iframeDocument.documentElement.outerHTML;
+                setCombinedString(`${totalHtml}<style>${cssString}</style>`);
+                console.log(combinedString);
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+            // e.target.innerHTML = "<h1>HELLO</h1>";
+          } else if (event.key === "Escape") {
+            if (inputElement && suggestionsButton && analyzeDesigns) {
+              // If input is empty on Enter, remove the input element
+              inputElement.remove();
+              suggestionsButton.remove();
+              analyzeDesigns.remove();
+            }
+          }
+        });
 
         iframeDocument.body.appendChild(inputElement);
-        iframeDocument.body.appendChild(enterButton);
         iframeDocument.body.appendChild(suggestionsButton);
+        iframeDocument.body.appendChild(analyzeDesigns);
         inputElement.focus();
       });
     });
-  }, [showPopup, imageUrl, imageUrl2, imageUrl3]);
+  }, [boundingBox, showPopup, imageUrl, imageUrl2, imageUrl3]);
 
   return (
     <div style={{ margin: 0, padding: 0 }}>
       <iframe
         id="myIframe"
-        src="website.html"
+        // src="website.html"
+        srcDoc={combinedString}
         style={{
           position: "relative",
           width: "100vw",
