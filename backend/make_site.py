@@ -32,9 +32,9 @@ def get_html_from_gpt(description):
     html_code = ""
     css_code = ""
     completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4",
         messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "system", "content": "Only include code in your responses. HTML Code should be formatted as ```html <html code>``` and CSS code should be formatted as ```css <css code>```"},
             {"role": "user", "content": f"Create an HTML website based on the following description: {description}. Return HTML code (with id's and className's) as well as a css file for the HTMl file."}
         ]
     )
@@ -82,7 +82,7 @@ def edit_html(original_html_code, original_css_code, changes):
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "system", "content": "Only include code in your responses. HTML Code should be formatted as ```html <html code>``` and CSS code should be formatted as ```css <css code>```"},
             {"role": "user", "content": prompt}
         ]
     )
