@@ -93,6 +93,10 @@ const App = () => {
   section {
     margin-bottom: 20px;
   }
+
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
   
   h2 {
     margin: 0 0 10px;
@@ -343,22 +347,6 @@ const App = () => {
         inputElement.style.color = 'black';
         inputElement.placeholder = '📝 Type a design prompt here...';
 
-        const existingButton = iframeDocument.getElementById('dynamicButton2');
-        if (existingButton) existingButton.remove();
-        // Create suggest designs button
-        const suggestDesigns = iframeDocument.createElement('button');
-        suggestDesigns.id = 'dynamicButton2';
-        suggestDesigns.innerHTML = '&#x1f3a8 Suggest Designs'; 
-        suggestDesigns.style.position = 'absolute';
-        suggestDesigns.style.left = `${offLeft + 235}px`;
-        suggestDesigns.style.top = `${(offTop - 60) >= 0 ? offTop - 60 : offTop + height + 20}px`;
-        suggestDesigns.style.border = '2px solid #C9FF55';
-        suggestDesigns.style.padding = '10px 15px';
-        suggestDesigns.style.borderRadius = '8px';
-        suggestDesigns.style.backgroundColor = '#C9FF55';
-        suggestDesigns.style.color = 'black';
-        suggestDesigns.style.cursor = 'pointer';
-
         const analyzeButton = iframeDocument.getElementById('dynamicButton');
         if (analyzeButton) analyzeButton.remove();
         // Create analyze design button
@@ -398,24 +386,6 @@ const App = () => {
           setShowPopup(true);
           sendToPython();
         });
-
-        const analyzeButton = iframeDocument.getElementById("dynamicButton");
-        if (analyzeButton) analyzeButton.remove();
-        // Create analyze design button
-        const analyzeDesigns = iframeDocument.createElement("button");
-        analyzeDesigns.id = "dynamicButton";
-        analyzeDesigns.innerHTML = "&#x1f50d Analyze UI/UX";
-        analyzeDesigns.style.position = "absolute";
-        analyzeDesigns.style.left = `${offLeft + 400}px`; // Adjusted the button's position to give space between buttons
-        analyzeDesigns.style.top = `${
-          offTop - 60 >= 0 ? offTop - 60 : offTop + height + 20
-        }px`;
-        analyzeDesigns.style.border = "2px solid #FF99EF";
-        analyzeDesigns.style.padding = "10px 15px";
-        analyzeDesigns.style.borderRadius = "8px";
-        analyzeDesigns.style.backgroundColor = "#FFD1F7";
-        analyzeDesigns.style.color = "black";
-        analyzeDesigns.style.cursor = "pointer";
 
         // Attach event to handle Enter key press
         inputElement.addEventListener("keydown", (event) => {
@@ -469,10 +439,10 @@ const App = () => {
         // Attach event to handle Enter key press
         inputElement.addEventListener('keydown', (event) => {
           if (event.key === 'Enter') {
-            if (inputElement && suggestDesigns && inputElement.value.trim() === '') {
+            if (inputElement && suggestionsButton && inputElement.value.trim() === '') {
               // If input is empty on Enter, remove the input element
               inputElement.remove();
-              suggestDesigns.remove();
+              suggestionsButton.remove();
               analyzeDesigns.remove();
             }
             fetch('http://localhost:5000/get/edit', {
@@ -501,10 +471,10 @@ const App = () => {
           }
           
           else if (event.key === 'Escape') {
-            if (inputElement && suggestDesigns && analyzeDesigns) {
+            if (inputElement && suggestionsButton && analyzeDesigns) {
               // If input is empty on Enter, remove the input element
               inputElement.remove();
-              suggestDesigns.remove();
+              suggestionsButton.remove();
               analyzeDesigns.remove();
             }
             
@@ -567,33 +537,6 @@ const App = () => {
               Image Suggestions
             </h1>
             <div>
-              <button
-                onClick={prevImage}
-                disabled={currentImageIndex === 0}
-                style={{
-                  padding: "10px 15px",
-                  backgroundColor: "#4A90E2",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "50%",
-                  fontSize: "20px",
-                  marginRight: "10px",
-                  transition: "opacity 0.3s, transform 0.3s",
-                  cursor: currentImageIndex === 0 ? "not-allowed" : "pointer",
-                }}
-                onMouseOver={(e) => {
-                  if (currentImageIndex !== 0) {
-                    e.target.style.opacity = "0.7";
-                    e.target.style.transform = "scale(1.05)";
-                  }
-                }}
-                onMouseOut={(e) => {
-                  e.target.style.opacity = "1";
-                  e.target.style.transform = "scale(1)";
-                }}
-              >
-                ←
-              </button>{" "}
               {/* Disable if we're at the first image */}
               {getCurrentImageUrl() === null ? (
                 <div
@@ -622,33 +565,63 @@ const App = () => {
                   />
                 </div>
               ) : null}
-              <button
-                onClick={nextImage}
-                disabled={currentImageIndex === 2}
-                style={{
-                  padding: "10px 15px",
-                  backgroundColor: "#4A90E2",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "50%",
-                  fontSize: "20px",
-                  marginLeft: "10px",
-                  transition: "opacity 0.3s, transform 0.3s",
-                  cursor: currentImageIndex === 2 ? "not-allowed" : "pointer",
-                }}
-                onMouseOver={(e) => {
-                  if (currentImageIndex !== 2) {
-                    e.target.style.opacity = "0.7";
-                    e.target.style.transform = "scale(1.05)";
-                  }
-                }}
-                onMouseOut={(e) => {
-                  e.target.style.opacity = "1";
-                  e.target.style.transform = "scale(1)";
-                }}
-              >
-                →
-              </button>{" "}
+               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              
+                <button
+                  onClick={prevImage}
+                  disabled={currentImageIndex === 0}
+                  style={{
+                    padding: "10px 15px",
+                    backgroundColor: "#0094FF",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "10px",
+                    fontSize: "20px",
+                    marginRight: "10px",
+                    transition: "opacity 0.3s, transform 0.3s",
+                    cursor: currentImageIndex === 0 ? "not-allowed" : "pointer",
+                  }}
+                  onMouseOver={(e) => {
+                    if (currentImageIndex !== 0) {
+                      e.target.style.opacity = "0.7";
+                      e.target.style.transform = "scale(1.05)";
+                    }
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.opacity = "1";
+                    e.target.style.transform = "scale(1)";
+                  }}
+                >
+                  ←
+                </button>{" "}
+                <button
+                  onClick={nextImage}
+                  disabled={currentImageIndex === 2}
+                  style={{
+                    padding: "10px 15px",
+                    backgroundColor: "#0094FF",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "10px",
+                    fontSize: "20px",
+                    marginLeft: "10px",
+                    transition: "opacity 0.3s, transform 0.3s",
+                    cursor: currentImageIndex === 2 ? "not-allowed" : "pointer",
+                  }}
+                  onMouseOver={(e) => {
+                    if (currentImageIndex !== 2) {
+                      e.target.style.opacity = "0.7";
+                      e.target.style.transform = "scale(1.05)";
+                    }
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.opacity = "1";
+                    e.target.style.transform = "scale(1)";
+                  }}
+                >
+                  →
+                </button>{" "}
+              </div>
               {/* Disable if we're at the last image */}
             </div>
 
@@ -702,9 +675,9 @@ const App = () => {
               display: "block",
               margin: "30px auto 0",
               padding: "10px 30px",
-              borderRadius: "25px",
+              borderRadius: "10px",
               border: "none",
-              backgroundColor: "#4A90E2",
+              backgroundColor: "#0094FF",
               color: "white",
               fontSize: "18px",
               cursor: "pointer",
