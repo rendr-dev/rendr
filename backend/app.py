@@ -7,9 +7,8 @@ import json
 import os
 
 
-# load_dotenv()
-# openai.api_key = os.getenv("OPENAI_API_KEY")
-openai.api_key = "sk-leetV7lWdBxPds9EeteST3BlbkFJLlnHTxG4RRDlmFWOlqOb"
+load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 from flask_cors import CORS
 
@@ -17,7 +16,7 @@ app = Flask(__name__)
 CORS(app)
 
 def get_html_from_gpt(description):
-    print("here")
+    # print("here")
     html_code = ""
     css_code = ""
     completion = openai.ChatCompletion.create(
@@ -34,12 +33,12 @@ def get_html_from_gpt(description):
         elif (i[0:3] == "css"):
             css_code = i
     if (html_code == "" or css_code == ""):
-        print(completion.choices[0].message.content.split("```"))
+        # print(completion.choices[0].message.content.split("```"))
         html_code, css_code = get_html_from_gpt(description)
     return (html_code, css_code)
 
 def edit_html(original_html_code, original_css_code, changes):
-    print("here")
+    # print("here")
     html_code = ""
     css_code = ""
     prompt = "Original HTML: \n"
@@ -63,7 +62,7 @@ def edit_html(original_html_code, original_css_code, changes):
         elif (i[0:3] == "css"):
             css_code = i
     if (html_code == "" or css_code == ""):
-        print(completion.choices[0].message.content.split("```"))
+        # print(completion.choices[0].message.content.split("```"))
         html_code, css_code = edit_html(original_html_code, original_css_code, changes)
     return (html_code, css_code)
 
@@ -87,8 +86,8 @@ def get_html_edit_endpoint():
 @app.route('/retrieve', methods=['POST'])
 def retrieve_element():
     clicked_element = request.form.get('clickedElement')
-    print('clicked element: \n')
-    print(clicked_element) # TODO: split this up into cases of image vs text tag
+    # print('clicked element: \n')
+    # print(clicked_element) # TODO: split this up into cases of image vs text tag
 
     PROMPT = "Generate an image for the following description. Note that it is originally HTML, so convert it into regular text if applicable.\n\n" + clicked_element
 
@@ -103,7 +102,7 @@ def retrieve_element():
     image_url2 = response['data'][1]['url']
     image_url3 = response['data'][2]['url']
     # image_url = response['data'][0]['b64_json']
-    print(image_url1)
+    # print(image_url1)
 
     PROMPT = "Generate alternative, improved phrasing for the following sentence(s).\n\n" + image_url1
 
@@ -116,7 +115,7 @@ def retrieve_element():
     )
 
     text_url = response['choices'][0]['message']['content']
-    print(text_url)
+    # print(text_url)
     return jsonify({"image_url": image_url1, "image_url2": image_url2, "image_url3": image_url3, "text_url": text_url})
 
 if __name__ == '__main__':

@@ -64,7 +64,7 @@ const App = () => {
       <h2>About Me</h2>
       <section id="interest">
         <h3>Interest in Sports</h3>
-        <p>Through my childhood and career, I have been interested in mainly basketball. My favorite player is Lebron James.</p>
+        <p>Through my childhood and career, I have been interested in mainly basketball.</p>
       </section>
   
       <section id="work">
@@ -292,7 +292,7 @@ const App = () => {
     // setShowPopup(false);
     const clickedElement = localStorage.getItem("clickedElement");
 
-    fetch("http://http://172.31.37.248:8000/retrieve", {
+    fetch("https://hackmit-c56114350684.herokuapp.com/retrieve", {
       // TODO: change this to the hosted backend
       method: "POST",
       headers: {
@@ -314,7 +314,7 @@ const App = () => {
     console.log("In download");
     const blob = new Blob([content], { type: contentType });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
     a.download = filename;
     a.click();
@@ -325,8 +325,13 @@ const App = () => {
     console.log(event.ctrlKey);
     console.log(event.key);
     if (event.ctrlKey && event.key == "x") {
-      downloadFile(document.getElementById("myIframe").contentWindow.document.documentElement.outerHTML, 'website.html', 'text/html');
-      downloadFile(cssString, 'styles.css', 'text/css');
+      downloadFile(
+        document.getElementById("myIframe").contentWindow.document
+          .documentElement.outerHTML,
+        "website.html",
+        "text/html"
+      );
+      downloadFile(cssString, "styles.css", "text/css");
     }
     // event.stopPropagation();
     // event.preventDefault();
@@ -341,49 +346,55 @@ const App = () => {
     iframe.addEventListener("load", function () {
       const iframeDocument = iframe.contentWindow.document;
       document.addEventListener("keydown", handleKeyPress);
-      iframeDocument.addEventListener('keydown', handleKeyPress);
-      iframeDocument.addEventListener('mouseover', function(e) {
-
-        if (['dynamicInput', 'dynamicButton', 'dynamicButton2'].includes(e.target.id)) {
+      iframeDocument.addEventListener("keydown", handleKeyPress);
+      iframeDocument.addEventListener("mouseover", function (e) {
+        if (
+          ["dynamicInput", "dynamicButton", "dynamicButton2"].includes(
+            e.target.id
+          )
+        ) {
           return;
         }
-        
+
         const width = e.target.clientWidth;
         const height = e.target.clientHeight;
         const offLeft = e.target.offsetLeft;
         const offTop = e.target.offsetTop;
 
-        var existingBox = iframeDocument.querySelector('.boundingBox');
+        var existingBox = iframeDocument.querySelector(".boundingBox");
         if (existingBox) {
-            existingBox.remove();
+          existingBox.remove();
         }
         // Update the bounding box
-        const newBoundingBox = iframeDocument.createElement('div');
-        newBoundingBox.style.position = 'absolute';
-        newBoundingBox.style.border = '5px solid rgba(0, 148, 255, 0.5)';
-        newBoundingBox.style.backgroundColor = 'rgba(0, 148, 255, 0)';
-        newBoundingBox.style.pointerEvents = 'none';
+        const newBoundingBox = iframeDocument.createElement("div");
+        newBoundingBox.style.position = "absolute";
+        newBoundingBox.style.border = "5px solid rgba(0, 148, 255, 0.5)";
+        newBoundingBox.style.backgroundColor = "rgba(0, 148, 255, 0)";
+        newBoundingBox.style.pointerEvents = "none";
         newBoundingBox.style.left = `${offLeft - 10}px`;
         newBoundingBox.style.top = `${offTop - 10}px`;
         newBoundingBox.style.width = `${width + 10}px`; // Adjust the width as needed
         newBoundingBox.style.height = `${height + 10}px`; // Adjust the height as needed
-        newBoundingBox.style.borderRadius = '10px';
+        newBoundingBox.style.borderRadius = "10px";
         iframeDocument.body.appendChild(newBoundingBox);
         setBoundingBox(newBoundingBox);
-      
+
         // Remove any existing bounding boxes
-        existingBox = iframeDocument.querySelector('.boundingBox');
+        existingBox = iframeDocument.querySelector(".boundingBox");
         if (existingBox) {
-            existingBox.remove();
+          existingBox.remove();
         }
         // Attach mouseout event to the hovered element
-        e.target.addEventListener('mouseout', function() {
-          newBoundingBox.remove();
-        }, { once: true }); // This ensures the listener is removed after executing once
-
+        e.target.addEventListener(
+          "mouseout",
+          function () {
+            newBoundingBox.remove();
+          },
+          { once: true }
+        ); // This ensures the listener is removed after executing once
       });
 
-      iframeDocument.addEventListener('click', function (e) {
+      iframeDocument.addEventListener("click", function (e) {
         const { clientX, clientY } = e;
         // console.log(e.target);
         const width = e.target.clientWidth;
@@ -391,7 +402,11 @@ const App = () => {
         const offLeft = e.target.offsetLeft;
         const offTop = e.target.offsetTop;
 
-        if (['dynamicInput', 'dynamicButton', 'dynamicButton2'].includes(e.target.id)) {
+        if (
+          ["dynamicInput", "dynamicButton", "dynamicButton2"].includes(
+            e.target.id
+          )
+        ) {
           return;
         }
 
@@ -413,10 +428,9 @@ const App = () => {
         newBoundingBox.style.borderRadius = "10px";
         iframeDocument.body.appendChild(newBoundingBox);
         setBoundingBox(newBoundingBox);
-        
 
         // Remove any existing bounding boxes
-        existingBox = iframeDocument.querySelector('.boundingBox');
+        existingBox = iframeDocument.querySelector(".boundingBox");
         if (existingBox) {
           existingBox.remove();
         }
@@ -427,7 +441,7 @@ const App = () => {
             newBoundingBox.remove();
           },
           { once: true }
-        ); 
+        );
       });
 
       // Click
@@ -458,35 +472,39 @@ const App = () => {
         if (existingInput) existingInput.remove();
 
         // Create new text box
-        const inputElement = iframeDocument.createElement('input');
-        inputElement.type = 'text';
-        inputElement.style.position = 'absolute';
+        const inputElement = iframeDocument.createElement("input");
+        inputElement.type = "text";
+        inputElement.style.position = "absolute";
         inputElement.style.left = `${offLeft}px`;
-        inputElement.style.top = `${(offTop - 60) >= 0 ? offTop - 60 : offTop + height + 20}px`;
-        inputElement.id = 'dynamicInput';
-        inputElement.style.width = '200px'; // Adjust the width as needed
-        inputElement.style.padding = '10px';
-        inputElement.style.border = '2px solid #FFC803'; 
-        inputElement.style.borderRadius = '8px';
-        inputElement.style.backgroundColor = '#FFC803';
-        inputElement.style.color = 'black';
-        inputElement.placeholder = '📝 Type a design prompt here...';
+        inputElement.style.top = `${
+          offTop - 60 >= 0 ? offTop - 60 : offTop + height + 20
+        }px`;
+        inputElement.id = "dynamicInput";
+        inputElement.style.width = "200px"; // Adjust the width as needed
+        inputElement.style.padding = "10px";
+        inputElement.style.border = "2px solid #FFC803";
+        inputElement.style.borderRadius = "8px";
+        inputElement.style.backgroundColor = "#FFC803";
+        inputElement.style.color = "black";
+        inputElement.placeholder = "📝 Type a design prompt here...";
 
-        const analyzeButton = iframeDocument.getElementById('dynamicButton');
+        const analyzeButton = iframeDocument.getElementById("dynamicButton");
         if (analyzeButton) analyzeButton.remove();
         // Create analyze design button
-        const analyzeDesigns = iframeDocument.createElement('button');
-        analyzeDesigns.id = 'dynamicButton';
-        analyzeDesigns.innerHTML = '&#x1f50d Analyze UI/UX';
-        analyzeDesigns.style.position = 'absolute';
-        analyzeDesigns.style.left = `${offLeft + 390}px`;  // Adjusted the button's position to give space between buttons
-        analyzeDesigns.style.top = `${(offTop - 60) >= 0 ? offTop - 60 : offTop + height + 20}px`;
-        analyzeDesigns.style.border = '2px solid #FF99EF';
-        analyzeDesigns.style.padding = '10px 15px';
-        analyzeDesigns.style.borderRadius = '8px';
-        analyzeDesigns.style.backgroundColor = '#FFD1F7';
-        analyzeDesigns.style.color = 'black';
-        analyzeDesigns.style.cursor = 'pointer';
+        const analyzeDesigns = iframeDocument.createElement("button");
+        analyzeDesigns.id = "dynamicButton";
+        analyzeDesigns.innerHTML = "&#x1f50d Analyze UI/UX";
+        analyzeDesigns.style.position = "absolute";
+        analyzeDesigns.style.left = `${offLeft + 390}px`; // Adjusted the button's position to give space between buttons
+        analyzeDesigns.style.top = `${
+          offTop - 60 >= 0 ? offTop - 60 : offTop + height + 20
+        }px`;
+        analyzeDesigns.style.border = "2px solid #FF99EF";
+        analyzeDesigns.style.padding = "10px 15px";
+        analyzeDesigns.style.borderRadius = "8px";
+        analyzeDesigns.style.backgroundColor = "#FFD1F7";
+        analyzeDesigns.style.color = "black";
+        analyzeDesigns.style.cursor = "pointer";
 
         const existingButton = iframeDocument.getElementById("dynamicButton2");
         if (existingButton) existingButton.remove();
@@ -512,32 +530,32 @@ const App = () => {
           sendToPython();
         });
 
-        analyzeDesigns.style.transition = 'all 0.3s ease'; // Add smooth transition effect
-        analyzeDesigns.addEventListener('mouseover', function() {
-            this.style.backgroundColor = '#FFB0E6';
-            this.style.borderColor = '#FF66D9';
-            this.style.boxShadow = '0px 5px 15px rgba(0, 0, 0, 0.2)'; // Adds a shadow effect
-            this.style.transform = 'scale(1.05)'; // Scale up the button slightly
+        analyzeDesigns.style.transition = "all 0.3s ease"; // Add smooth transition effect
+        analyzeDesigns.addEventListener("mouseover", function () {
+          this.style.backgroundColor = "#FFB0E6";
+          this.style.borderColor = "#FF66D9";
+          this.style.boxShadow = "0px 5px 15px rgba(0, 0, 0, 0.2)"; // Adds a shadow effect
+          this.style.transform = "scale(1.05)"; // Scale up the button slightly
         });
-        analyzeDesigns.addEventListener('mouseout', function() {
-            this.style.backgroundColor = '#FFD1F7';
-            this.style.borderColor = '#FF99EF';
-            this.style.boxShadow = 'none'; // Remove the shadow effect
-            this.style.transform = 'scale(1)'; // Reset the scale to default
+        analyzeDesigns.addEventListener("mouseout", function () {
+          this.style.backgroundColor = "#FFD1F7";
+          this.style.borderColor = "#FF99EF";
+          this.style.boxShadow = "none"; // Remove the shadow effect
+          this.style.transform = "scale(1)"; // Reset the scale to default
         });
 
-        suggestionsButton.style.transition = 'all 0.3s ease';
-        suggestionsButton.addEventListener('mouseover', function() {
-            this.style.backgroundColor = '#AFFF33';
-            this.style.borderColor = '#9EDD00';
-            this.style.boxShadow = '0px 5px 15px rgba(0, 0, 0, 0.2)';
-            this.style.transform = 'scale(1.05)';
+        suggestionsButton.style.transition = "all 0.3s ease";
+        suggestionsButton.addEventListener("mouseover", function () {
+          this.style.backgroundColor = "#AFFF33";
+          this.style.borderColor = "#9EDD00";
+          this.style.boxShadow = "0px 5px 15px rgba(0, 0, 0, 0.2)";
+          this.style.transform = "scale(1.05)";
         });
-        suggestionsButton.addEventListener('mouseout', function() {
-            this.style.backgroundColor = '#C9FF55';
-            this.style.borderColor = '#C9FF55';
-            this.style.boxShadow = 'none';
-            this.style.transform = 'scale(1)';
+        suggestionsButton.addEventListener("mouseout", function () {
+          this.style.backgroundColor = "#C9FF55";
+          this.style.borderColor = "#C9FF55";
+          this.style.boxShadow = "none";
+          this.style.transform = "scale(1)";
         });
 
         // Attach event to handle Enter key press
@@ -590,70 +608,73 @@ const App = () => {
         // });
 
         // Attach event to handle Enter key press
-        inputElement.addEventListener('keydown', (event) => {
-          if (event.key === 'Enter') {
-            if (inputElement && suggestionsButton && inputElement.value.trim() === '') {
+        inputElement.addEventListener("keydown", (event) => {
+          if (event.key === "Enter") {
+            if (
+              inputElement &&
+              suggestionsButton &&
+              inputElement.value.trim() === ""
+            ) {
               // If input is empty on Enter, remove the input element
               inputElement.remove();
               suggestionsButton.remove();
               analyzeDesigns.remove();
             }
-            fetch('http://http://172.31.37.248:8000/get/edit', {
-              method: 'POST',
+            fetch("https://hackmit-c56114350684.herokuapp.com/get/edit", {
+              method: "POST",
               headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
               },
-              body: JSON.stringify({ description: inputElement.value.trim() , original_html_code: e.target.innerHTML, original_css_code: cssString}),
+              body: JSON.stringify({
+                description: inputElement.value.trim(),
+                original_html_code: e.target.innerHTML,
+                original_css_code: cssString,
+              }),
             })
-            .then((response) => response.json())
-            .then((data) => {
-              // console.log('HTML Code:', data.html_code);
-              // console.log('CSS Code:', data.css_code);
-              e.target.innerHTML = data.html_code;
-              cssString = data.css_code.toString()
-              console.log(iframeDocument.documentElement.outerHTML);
-              htmlString = iframeDocument.documentElement.outerHTML;
-              setCombinedString(`${htmlString}<style>${cssString}</style>`);
-              console.log(combinedString);
-              if (inputElement) {
-                inputElement.remove();
-              }
-              if (suggestionsButton) {
-                suggestionsButton.remove();
-              }
-              if (analyzeDesigns) {
-                analyzeDesigns.remove();
-              }
-              const existingBox = iframeDocument.querySelector('.boundingBox');
-              if (existingBox) {
+              .then((response) => response.json())
+              .then((data) => {
+                // console.log('HTML Code:', data.html_code);
+                // console.log('CSS Code:', data.css_code);
+                e.target.innerHTML = data.html_code;
+                cssString = data.css_code.toString();
+                console.log(iframeDocument.documentElement.outerHTML);
+                htmlString = iframeDocument.documentElement.outerHTML;
+                setCombinedString(`${htmlString}<style>${cssString}</style>`);
+                console.log(combinedString);
+                if (inputElement) {
+                  inputElement.remove();
+                }
+                if (suggestionsButton) {
+                  suggestionsButton.remove();
+                }
+                if (analyzeDesigns) {
+                  analyzeDesigns.remove();
+                }
+                const existingBox =
+                  iframeDocument.querySelector(".boundingBox");
+                if (existingBox) {
                   existingBox.remove();
-              }
-
-            })
-            .catch((error) => {
-              console.error('Error:', error);
-            });
+                }
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
             // e.target.innerHTML = "<h1>HELLO</h1>";
-          }
-          
-          else if (event.key === 'Escape') {
+          } else if (event.key === "Escape") {
             if (inputElement && suggestionsButton && analyzeDesigns) {
               // If input is empty on Enter, remove the input element
               inputElement.remove();
               suggestionsButton.remove();
               analyzeDesigns.remove();
             }
-            
-      }});
-
-
+          }
+        });
 
         iframeDocument.body.appendChild(inputElement);
         iframeDocument.body.appendChild(suggestionsButton);
         iframeDocument.body.appendChild(analyzeDesigns);
         inputElement.focus();
       });
-
     });
   }, [boundingBox, showPopup, imageUrl, imageUrl2, imageUrl3]);
 
@@ -731,8 +752,7 @@ const App = () => {
                   />
                 </div>
               ) : null}
-               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <button
                   onClick={prevImage}
                   disabled={currentImageIndex === 0}
