@@ -302,7 +302,7 @@ const App = () => {
     })
       .then((response) => response.json()) // Assuming server responds with json
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setImageUrl(data.image_url);
         setImageUrl2(data.image_url2); // TODO: Remove this line
         setImageUrl3(data.image_url3); // TODO: Remove this line
@@ -385,7 +385,7 @@ const App = () => {
 
       iframeDocument.addEventListener('click', function (e) {
         const { clientX, clientY } = e;
-        console.log(e.target);
+        // console.log(e.target);
         const width = e.target.clientWidth;
         const height = e.target.clientHeight;
         const offLeft = e.target.offsetLeft;
@@ -418,7 +418,7 @@ const App = () => {
         // Remove any existing bounding boxes
         existingBox = iframeDocument.querySelector('.boundingBox');
         if (existingBox) {
-            existingBox.remove();
+          existingBox.remove();
         }
         // Attach mouseout event to the hovered element
         iframeDocument.addEventListener(
@@ -607,8 +607,8 @@ const App = () => {
             })
             .then((response) => response.json())
             .then((data) => {
-              console.log('HTML Code:', data.html_code);
-              console.log('CSS Code:', data.css_code);
+              // console.log('HTML Code:', data.html_code);
+              // console.log('CSS Code:', data.css_code);
               e.target.innerHTML = data.html_code;
               cssString = data.css_code.toString()
               console.log(iframeDocument.documentElement.outerHTML);

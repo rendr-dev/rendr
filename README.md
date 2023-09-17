@@ -4,4 +4,4 @@
 
 There are two primary folders: one for the backend Flask servers and one for the React JS frontend. 
 
-Link to demo: Coming Soon!
+Link to demo: rendr.vercel.app
