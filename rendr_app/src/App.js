@@ -15,44 +15,38 @@ const App = () => {
       const iframeDocument = iframe.contentWindow.document;
 
       iframeDocument.addEventListener('mouseover', function(e) {
-          const { clientX, clientY } = e;
-          // Get the width and height of the clicked element
-          const width = e.target.clientWidth;
-          const height = e.target.clientHeight;
-          const offLeft = e.target.offsetLeft;
-          const offTop = e.target.offsetTop;
+        const width = e.target.clientWidth;
+        const height = e.target.clientHeight;
+        const offLeft = e.target.offsetLeft;
+        const offTop = e.target.offsetTop;
 
-          // Update the bounding box
-          // if (boundingBox) {
-          //   boundingBox.style.left = `${clientX}px`;
-          //   boundingBox.style.top = `${clientY}px`;
-          // } else {
-            // Create a new bounding box if it doesn't exist
-            const newBoundingBox = iframeDocument.createElement('div');
-            newBoundingBox.style.position = 'absolute';
-            newBoundingBox.style.border = '5px solid rgba(0, 148, 255, 0.5)';
-            newBoundingBox.style.pointerEvents = 'none';
-            newBoundingBox.style.left = `${offLeft}px`;
-            newBoundingBox.style.top = `${offTop}px`;
-            newBoundingBox.style.width = `${width}px`; // Adjust the width as needed
-            newBoundingBox.style.height = `${height}px`; // Adjust the height as needed
-            newBoundingBox.style.borderRadius = '10px';
-            iframeDocument.body.appendChild(newBoundingBox);
-            setBoundingBox(newBoundingBox);
-          // }
+        // Update the bounding box
+        const newBoundingBox = iframeDocument.createElement('div');
+        newBoundingBox.style.position = 'absolute';
+        newBoundingBox.style.border = '5px solid rgba(0, 148, 255, 0.3)';
+        newBoundingBox.style.pointerEvents = 'none';
+        newBoundingBox.style.left = `${offLeft}px`;
+        newBoundingBox.style.top = `${offTop}px`;
+        newBoundingBox.style.width = `${width}px`; // Adjust the width as needed
+        newBoundingBox.style.height = `${height}px`; // Adjust the height as needed
+        newBoundingBox.style.borderRadius = '10px';
+        iframeDocument.body.appendChild(newBoundingBox);
+        setBoundingBox(newBoundingBox);
+      
+        // Remove any existing bounding boxes
+        const existingBox = iframeDocument.querySelector('.boundingBox');
+        if (existingBox) {
+            existingBox.remove();
+        }
+        // Attach mouseout event to the hovered element
+        e.target.addEventListener('mouseout', function() {
+          newBoundingBox.remove();
+        }, { once: true }); // This ensures the listener is removed after executing once
 
-          console.log('offLeft:', offLeft);
-          console.log('offTop:', offTop);
-          console.log('Width:', width);
-          console.log('Height:', height);
       });
 
       iframeDocument.addEventListener('click', function (e) {
-
         const { clientX, clientY } = e;
-        console.log(e);
-
-        const clickedElement = document.elementFromPoint(clientX, clientY);
 
         // Remove existing text box if any
         const existingInput = iframeDocument.getElementById('dynamicInput');
@@ -75,38 +69,36 @@ const App = () => {
 
         const existingButton = iframeDocument.getElementById('dynamicButton');
         if (existingButton) existingButton.remove();
-         // Create suggest designs button
-         const suggestDesigns = iframeDocument.createElement('button');
-         suggestDesigns.id = 'dynamicButton';
-         suggestDesigns.textContent = 'Suggest Designs';
-         suggestDesigns.style.position = 'absolute';
-         suggestDesigns.style.left = `${clientX + 180}px`; // Adjust the button position as needed
-         suggestDesigns.style.top = `${clientY - 50}px`;
-         suggestDesigns.style.border = '2px solid #ccc';
-         suggestDesigns.style.padding = '10px';
-         suggestDesigns.style.borderRadius = '5px';
-         suggestDesigns.style.backgroundColor = '#C9FF55';
-         suggestDesigns.style.color = 'black';
+        // Create suggest designs button
+        const suggestDesigns = iframeDocument.createElement('button');
+        suggestDesigns.id = 'dynamicButton';
+        suggestDesigns.textContent = 'Suggest Designs';
+        suggestDesigns.style.position = 'absolute';
+        suggestDesigns.style.left = `${clientX + 180}px`; // Adjust the button position as needed
+        suggestDesigns.style.top = `${clientY - 50}px`;
+        suggestDesigns.style.border = '2px solid #ccc';
+        suggestDesigns.style.padding = '10px';
+        suggestDesigns.style.borderRadius = '5px';
+        suggestDesigns.style.backgroundColor = '#C9FF55';
+        suggestDesigns.style.color = 'black';
 
-         const analyzeButton = iframeDocument.getElementById('dynamicButton');
-         if (analyzeButton) analyzeButton.remove();
-         // Create analyze design button
-         const analyzeDesigns = iframeDocument.createElement('button');
-         analyzeDesigns.id = 'dynamicButton';
-         analyzeDesigns.textContent = 'Analyze UI/UX';
-         analyzeDesigns.style.position = 'absolute';
-         analyzeDesigns.style.left = `${clientX + 300}px`; // Adjust the button position as needed
-         analyzeDesigns.style.top = `${clientY - 50 }px`;
-         analyzeDesigns.style.border = '2px solid #ccc';
-         analyzeDesigns.style.padding = '10px';
-         analyzeDesigns.style.borderRadius = '5px';
-         analyzeDesigns.style.backgroundColor = '#FF99EF';
-         analyzeDesigns.style.color = 'black';
-
+        const analyzeButton = iframeDocument.getElementById('dynamicButton');
+        if (analyzeButton) analyzeButton.remove();
+        // Create analyze design button
+        const analyzeDesigns = iframeDocument.createElement('button');
+        analyzeDesigns.id = 'dynamicButton';
+        analyzeDesigns.textContent = 'Analyze UI/UX';
+        analyzeDesigns.style.position = 'absolute';
+        analyzeDesigns.style.left = `${clientX + 300}px`; // Adjust the button position as needed
+        analyzeDesigns.style.top = `${clientY - 50 }px`;
+        analyzeDesigns.style.border = '2px solid #ccc';
+        analyzeDesigns.style.padding = '10px';
+        analyzeDesigns.style.borderRadius = '5px';
+        analyzeDesigns.style.backgroundColor = '#FF99EF';
+        analyzeDesigns.style.color = 'black';
 
         // Attach event to handle input
         inputElement.addEventListener('input', handleInput);
-        // buttonElement.addEventListener('click', handleButton);
 
         // Attach event to handle Enter key press
         inputElement.addEventListener('keydown', (event) => {
