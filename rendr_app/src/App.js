@@ -12,36 +12,81 @@ const App = () => {
     <title>Portfolio</title>
   </head>
   <body>
-    <header id="header">
+    <header id="header" style="border-radius: 10px;">
       <h1>My Portfolio</h1>
     </header>
-  
+
+    <div style="margin: 10px;"/>
+
+    <section id="intro">
+      <div class="icon-and-text">
+          <h1><span class="emoji" style="font-size: 36px;">&#128075</span></h1>
+          <h1 style="color: white">welcome to <span style="color: #0094FF; font-family: 'Source Code Pro', monospace;">rendr</span> - front-end engineering made easy.</h1>
+      </div>
+      <h3 style="margin-left: 3.25%; color: lightgray;"><i>Create</i>, <i>modify</i>, and <i>re-render</i> webpages by <u>directly interacting with components</u> and making creative changes with AI.</h3>
+
+      <div style="margin:12px" />      
+      
+      <div class="icon-and-text" style="margin-bottom:12px">
+        <div class="circle">1</div>
+        <h3 style="color: white; font-weight: normal; margin-top: 7px"> To use rendr, move your mouse <span class="emoji">&#x1f42d</span>around to target <span class="emoji">&#x1f3af</span>any component of this webpage you'd like to change. </h3>
+      </div>
+
+      <div class="icon-and-text" style="margin-bottom:12px">
+        <div class="circle">2</div>
+        <h3 style="color: white; font-weight: normal; margin-top: 7px"> Select any target component, and click on it to interact. </h3>
+      </div>
+
+      <div class="icon-and-text" style="margin-bottom:12px">
+        <div class="circle">3</div>
+        <h3 style="color: white; font-weight: normal; margin-top: 7px"> To make a simple UI change <span class="emoji">&#x1f3a8</span>, type a specific prompt <span class="emoji">&#x1f4dd</span> for the targeted component (ie. Add more material to this section about hackathons). </h3>
+      </div>
+        
+
+      <div class="icon-and-text" style="margin-bottom:12px">
+        <div class="circle">4</div>
+        <h3 style="color: white; font-weight: normal; margin-top: 7px"> Hit enter to submit the changes! Wait up to 20-30 seconds for the change (we hope to optimize later! <span class="emoji">&#x1f4a8</span>). </h3>
+      </div>
+      
+
+      <div class="icon-and-text" style="margin-bottom:12px">
+        <div class="circle">5</div>
+        <h3 style="color: white; font-weight: normal; margin-top: 7px"> Don't fret if you run into creator's block! You can also click on "Suggest Designs" <span class="emoji">&#x1f5bc</span> to recommend generated image and text suggestions.</h3>
+      </div>
+
+      <div class="icon-and-text" style="margin-bottom:12px">
+      <div class="circle">6</div>
+      <h3 style="color: white; font-weight: bold; margin-top: 7px">Key commands: [enter] - submit prompt for changing UI, [esc] - close toolbar, [command-x] - saves your changed UI design as HTML + CSS files</h3>
+    </div>
+    </section>
+
     <section id="about">
       <h2>About Me</h2>
       <section id="interest">
-        <h3>Interest in Machine Learning</h3>
-        <p>I have a strong passion for machine learning and enjoy exploring its various applications in different fields.</p>
+        <h3>Interest in Sports</h3>
+        <p>Through my childhood and career, I have been interested in mainly basketball. My favorite player is Lebron James.</p>
       </section>
   
       <section id="work">
-        <h3>Past Work at Google Research on Plate Reconstruction</h3>
-        <p>During my time at Google Research, I had the opportunity to work on plate reconstruction techniques to improve the accuracy and efficiency of the process.</p>
+        <h3>Past Career</h3>
+        <p>Over my career, I played professionally in the NBA for the Miami Heat for a few years, where I won the NBA Championships twice. I've also played for the Cleveland Cavaliers and Los Angeles Lakers.</p>
       </section>
   
       <section id="projects">
-        <h2>Projects</h2>
+        <h2>Favorite Parks</h2>
         <div id="project-container">
           <div class="project">
-            <h3>Plate Reconstruction Algorithm</h3>
-            <p>This project involved developing a plate reconstruction algorithm using Convolutional Neural Networks (CNNs) to enhance the accuracy and speed of the process.</p>
+            <h3>Mount Rainier National Park</h3>
+            <p>Nestled in the Cascade Range of Washington state, Mount Rainier National Park is a paradise for nature enthusiasts. Its centerpiece, Mount Rainier, is an active stratovolcano adorned with glaciers and subalpine meadows. Visitors can explore a network of hiking trails that lead to awe-inspiring vistas, pristine lakes, and waterfalls. The park is a haven for wildlife, including marmots, black bears, and elk.</p>
           </div>
           <div class="project">
-            <h3>Lung Cancer Diagnosis Synthetic Data Generation</h3>
-            <p>In this project, I utilized CTGANs to generate synthetic data for lung cancer diagnosis, enabling researchers to train and test machine learning models without compromising patient privacy.</p>
+            <h3>Yellowstone National Park</h3>
+            <p>Yellowstone is a geological wonderland and the first national park in the world. Located primarily in Wyoming but extending into Montana and Idaho, it's famous for its geothermal features like Old Faithful geyser and the Grand Prismatic Spring. The park's diverse ecosystems support iconic wildlife, including bison, grizzly bears, and wolves. Visitors can marvel at dramatic canyons, lush forests, and the Yellowstone River.
+            </p>
           </div>
           <div class="project">
-            <h3>Calorie Tracker and Personalized Fitness Scheduler</h3>
-            <p>For this project, I designed and implemented an ML-based application that tracks calorie intake, monitors fitness goals, and generates personalized workout schedules based on user preferences and progress.</p>
+            <h3>Yosemite National Park</h3>
+            <p>Situated in California's Sierra Nevada mountains, Yosemite National Park is renowned for its breathtaking landscapes. Towering granite cliffs, such as El Capitan and Half Dome, dominate the park's skyline. Yosemite Valley boasts lush meadows, cascading waterfalls like Yosemite Falls, and the iconic Merced River. Hikers and climbers from around the world come to experience its natural beauty.</p>
           </div>
         </div>
       </section>
@@ -56,15 +101,16 @@ const App = () => {
       <h2>Contact Me</h2>
       <form>
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name">
+        <input type="text" id="name" name="name" style="border-radius: 10px; border-color: black;">
         
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email">
+        <input type="email" id="email" name="email" style="border-radius: 10px; border-color: black;">
         
         <label for="message">Message:</label>
-        <textarea id="message" name="message"></textarea>
-        
-        <input type="submit" value="Send">
+        <input type="message" id="message" name="message" style="border-radius: 10px; border-color: black;"></input>
+        <div style="margin:10px"/>
+
+        <input type="submit" value="Send" style="background-color: black; border-radius: 10px; border-color: black;">
       </form>
     </section>
   </body>
@@ -73,7 +119,7 @@ const App = () => {
   var cssString = `
   /* Header styles */
   #header {
-    background-color: #333;
+    background-color: #0094FF;
     color: #fff;
     padding: 20px;
     text-align: center;
@@ -87,6 +133,13 @@ const App = () => {
   #about {
     background-color: #f2f2f2;
     padding: 20px;
+    border-radius: 10px;
+  }
+
+  #intro {
+    background-color: #282c34;
+    padding: 20px;
+    border-radius: 10px;
   }
   
   /* Subsection styles */
@@ -134,6 +187,7 @@ const App = () => {
   #contact {
     background-color: #e6e6e6;
     padding: 20px;
+    border-radius: 10px;
   }
   
   label {
@@ -144,7 +198,15 @@ const App = () => {
   input[type="text"],
   input[type="email"],
   textarea {
-    width: 100%;
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 16px;
+  }
+
+  input[type="message"],
+  textarea {
+    width: 80%;
+    height: 100px;
     padding: 10px;
     margin-bottom: 16px;
   }
@@ -156,6 +218,37 @@ const App = () => {
     border: none;
     cursor: pointer;
   }
+
+  .circle {
+    width: 30px;
+    height: 30px;
+    background-color: #007bff; /* Circle background color */
+    color: #fff; /* Text color */
+    border-radius: 50%; /* Makes it a circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 30px;
+    margin-right:10px;
+  }
+  .emoji {
+    padding-right: 5px;
+    font-size: 18px;
+  }
+
+  .icon-and-text{
+    flex: 1;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .underline {
+    text-decoration: underline;
+  }
+  
   `;
 
   const [inputValue, setInputValue] = useState("");
@@ -289,20 +382,22 @@ const App = () => {
         newBoundingBox.style.borderRadius = "10px";
         iframeDocument.body.appendChild(newBoundingBox);
         setBoundingBox(newBoundingBox);
+        
 
         // Remove any existing bounding boxes
         const existingBox = iframeDocument.querySelector(".boundingBox");
         if (existingBox) {
+          console.log("existing box!!")
           existingBox.remove();
         }
         // Attach mouseout event to the hovered element
-        e.target.addEventListener(
+        iframeDocument.addEventListener(
           "mouseout",
           function () {
             newBoundingBox.remove();
           },
           { once: true }
-        ); // This ensures the listener is removed after executing once
+        ); 
       });
 
       // Click
