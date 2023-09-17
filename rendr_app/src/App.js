@@ -292,7 +292,7 @@ const App = () => {
     // setShowPopup(false);
     const clickedElement = localStorage.getItem("clickedElement");
 
-    fetch("http://localhost:8000/retrieve", {
+    fetch("http://http://172.31.37.248:8000/retrieve", {
       // TODO: change this to the hosted backend
       method: "POST",
       headers: {
@@ -553,7 +553,7 @@ const App = () => {
         //       suggestionsButton.remove();
         //       analyzeDesigns.remove();
         //     }
-        //     fetch("http://localhost:5000/get/edit", {
+        //     fetch("http://http://172.31.37.248:8000/get/edit", {
         //       method: "POST",
         //       headers: {
         //         "Content-Type": "application/json",
@@ -598,7 +598,7 @@ const App = () => {
               suggestionsButton.remove();
               analyzeDesigns.remove();
             }
-            fetch('http://localhost:5000/get/edit', {
+            fetch('http://http://172.31.37.248:8000/get/edit', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
