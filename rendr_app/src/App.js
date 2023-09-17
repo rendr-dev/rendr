@@ -4,6 +4,7 @@ const App = () => {
   const [inputValue, setInputValue] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);
+  const [textSuggestions, setTextSuggestions] = useState(null);
 
   const sendToPython = () => {
     // setShowPopup(false);
@@ -21,6 +22,7 @@ const App = () => {
       .then((data) => {
         console.log(data);
         setImageUrl(data.image_url);
+        setTextSuggestions(data.text_url);
       })
       .catch((error) => console.error("Error:", error));
   };
@@ -154,6 +156,7 @@ const App = () => {
           <h1>Image Suggestions</h1>
           <img src={imageUrl !== "null" ? imageUrl : null} />
           <h1>Text Suggestions</h1>
+          <p>{textSuggestions !== "null" ? textSuggestions : null}</p>
           <button
             onClick={() => setShowPopup(false)}
             style={{

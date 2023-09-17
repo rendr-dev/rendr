@@ -34,6 +34,20 @@ def retrieve_element():
 
     image_url = response['data'][0]['url']
     print(image_url)
+
+    PROMPT = "Generate alternative, improved phrasing for the following sentence(s).\n\n" + image_url
+
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant who is an expert in web dev phrasing."},
+            {"role": "user", "content": f"Generate alternative, improved phrasing for the following sentence(s). {clicked_element} \n \n These will go on a website, so make it match that style. Remove any hint of HTML formatting -- just parse the text."}
+        ]
+    )
+
+    text_url = response['choices'][0]['message']['content']
+    print(text_url)
+
     # print(response['data'][0])
 
     # curr = response["data"][0]["b64_json"]
@@ -48,7 +62,7 @@ def retrieve_element():
     # # Assuming your server is at http://localhost:8000, provide a URL to the saved image
     # image_url = f"http://localhost:8000/{file_path}"
 
-    return jsonify({"image_url": image_url})
+    return jsonify({"image_url": image_url, "text_url": text_url})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)
