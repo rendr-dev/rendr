@@ -3,12 +3,36 @@ import React, { useEffect, useState } from "react";
 const App = () => {
   const [inputValue, setInputValue] = useState("");
   const [showPopup, setShowPopup] = useState(false);
+  const [imageUrl, setImageUrl] = useState(null);
+
+  const sendToPython = () => {
+    // setShowPopup(false);
+    const clickedElement = localStorage.getItem("clickedElement");
+
+    fetch("http://localhost:8000/retrieve", {
+      // TODO: change this to the hosted backend
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `clickedElement=${clickedElement}`,
+    })
+      .then((response) => response.json()) // Assuming server responds with json
+      .then((data) => {
+        console.log(data);
+        setImageUrl(data.image_url);
+      })
+      .catch((error) => console.error("Error:", error));
+  };
 
   useEffect(() => {
     const iframe = document.getElementById("myIframe");
     let inputElement;
     let enterButton;
     let suggestionsButton;
+
+    // Rerender the image whenever imageUrl changes.
+    setImageUrl("https://example.com/image.jpg");
 
     const handleInput = (e) => {
       setInputValue(e.target.value);
@@ -27,8 +51,14 @@ const App = () => {
       const iframeDocument = iframe.contentWindow.document;
 
       iframeDocument.addEventListener("dblclick", function (e) {
-        const { clientX, clientY } = e;
+        console.log(e.target); // TODO: Remove this line
 
+        // TODO: change this to send it to the backend instead
+
+        const elementString = e.target.outerHTML;
+        localStorage.setItem("clickedElement", elementString);
+
+        const { clientX, clientY } = e;
         // Remove existing elements if they exist
         [
           "dynamicInput",
@@ -71,6 +101,7 @@ const App = () => {
         suggestionsButton.addEventListener("click", (event) => {
           event.stopPropagation();
           setShowPopup(true);
+          sendToPython();
         });
 
         // Create and configure enterButton
@@ -93,7 +124,7 @@ const App = () => {
         inputElement.focus();
       });
     });
-  }, [showPopup]);
+  }, [showPopup, imageUrl]);
 
   return (
     <div style={{ margin: 0, padding: 0 }}>
@@ -124,6 +155,8 @@ const App = () => {
           }}
         >
           <h1>Image Suggestions</h1>
+          <img src={imageUrl !== "null" ? imageUrl : null} />
+          <h1>Text Suggestions</h1>
           <button
             onClick={() => setShowPopup(false)}
             style={{
