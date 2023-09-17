@@ -347,22 +347,6 @@ const App = () => {
         inputElement.style.color = 'black';
         inputElement.placeholder = '📝 Type a design prompt here...';
 
-        const existingButton = iframeDocument.getElementById('dynamicButton2');
-        if (existingButton) existingButton.remove();
-        // Create suggest designs button
-        const suggestDesigns = iframeDocument.createElement('button');
-        suggestDesigns.id = 'dynamicButton2';
-        suggestDesigns.innerHTML = '&#x1f3a8 Suggest Designs'; 
-        suggestDesigns.style.position = 'absolute';
-        suggestDesigns.style.left = `${offLeft + 235}px`;
-        suggestDesigns.style.top = `${(offTop - 60) >= 0 ? offTop - 60 : offTop + height + 20}px`;
-        suggestDesigns.style.border = '2px solid #C9FF55';
-        suggestDesigns.style.padding = '10px 15px';
-        suggestDesigns.style.borderRadius = '8px';
-        suggestDesigns.style.backgroundColor = '#C9FF55';
-        suggestDesigns.style.color = 'black';
-        suggestDesigns.style.cursor = 'pointer';
-
         const analyzeButton = iframeDocument.getElementById('dynamicButton');
         if (analyzeButton) analyzeButton.remove();
         // Create analyze design button
@@ -402,24 +386,6 @@ const App = () => {
           setShowPopup(true);
           sendToPython();
         });
-
-        const analyzeButton = iframeDocument.getElementById("dynamicButton");
-        if (analyzeButton) analyzeButton.remove();
-        // Create analyze design button
-        const analyzeDesigns = iframeDocument.createElement("button");
-        analyzeDesigns.id = "dynamicButton";
-        analyzeDesigns.innerHTML = "&#x1f50d Analyze UI/UX";
-        analyzeDesigns.style.position = "absolute";
-        analyzeDesigns.style.left = `${offLeft + 400}px`; // Adjusted the button's position to give space between buttons
-        analyzeDesigns.style.top = `${
-          offTop - 60 >= 0 ? offTop - 60 : offTop + height + 20
-        }px`;
-        analyzeDesigns.style.border = "2px solid #FF99EF";
-        analyzeDesigns.style.padding = "10px 15px";
-        analyzeDesigns.style.borderRadius = "8px";
-        analyzeDesigns.style.backgroundColor = "#FFD1F7";
-        analyzeDesigns.style.color = "black";
-        analyzeDesigns.style.cursor = "pointer";
 
         // Attach event to handle Enter key press
         inputElement.addEventListener("keydown", (event) => {
@@ -473,10 +439,10 @@ const App = () => {
         // Attach event to handle Enter key press
         inputElement.addEventListener('keydown', (event) => {
           if (event.key === 'Enter') {
-            if (inputElement && suggestDesigns && inputElement.value.trim() === '') {
+            if (inputElement && suggestionsButton && inputElement.value.trim() === '') {
               // If input is empty on Enter, remove the input element
               inputElement.remove();
-              suggestDesigns.remove();
+              suggestionsButton.remove();
               analyzeDesigns.remove();
             }
             fetch('http://localhost:5000/get/edit', {
@@ -505,10 +471,10 @@ const App = () => {
           }
           
           else if (event.key === 'Escape') {
-            if (inputElement && suggestDesigns && analyzeDesigns) {
+            if (inputElement && suggestionsButton && analyzeDesigns) {
               // If input is empty on Enter, remove the input element
               inputElement.remove();
-              suggestDesigns.remove();
+              suggestionsButton.remove();
               analyzeDesigns.remove();
             }
             
