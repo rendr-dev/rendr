@@ -27,15 +27,18 @@ def retrieve_element():
 
     response = openai.Image.create(
         prompt=PROMPT,
-        n=1,
+        n=3,
         size="256x256",
         # response_format="b64_json", 
     ) # TODO: change to back to base64
 
-    image_url = response['data'][0]['url']
-    print(image_url)
+    image_url1 = response['data'][0]['url']
+    image_url2 = response['data'][1]['url']
+    image_url3 = response['data'][2]['url']
+    # image_url = response['data'][0]['b64_json']
+    print(image_url1)
 
-    PROMPT = "Generate alternative, improved phrasing for the following sentence(s).\n\n" + image_url
+    PROMPT = "Generate alternative, improved phrasing for the following sentence(s).\n\n" + image_url1
 
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -62,7 +65,7 @@ def retrieve_element():
     # # Assuming your server is at http://localhost:8000, provide a URL to the saved image
     # image_url = f"http://localhost:8000/{file_path}"
 
-    return jsonify({"image_url": image_url, "text_url": text_url})
+    return jsonify({"image_url": image_url1, "image_url2": image_url2, "image_url3": image_url3, "text_url": text_url})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)
