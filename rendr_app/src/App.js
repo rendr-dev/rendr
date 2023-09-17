@@ -127,85 +127,114 @@ const App = () => {
 
   return (
     <div style={{ margin: 0, padding: 0 }}>
-      <iframe
-        id="myIframe"
-        src="website.html"
-        style={{
-          position: "relative",
-          width: "100vw",
-          height: "100vh",
-          border: "none",
-        }}
-      ></iframe>
-      {showPopup && (
-        <div
-          style={{
-            position: "fixed",
-            right: "0%",
-            bottom: "0%",
-            width: "50vw",
-            height: "100vh",
-            backgroundColor: "rgba(0,148,255,0.95)",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            animation: "fadeIn 0.5s",
-            borderRadius: "10px",
-            display: "flex",
-            flex: 1,
-          }}
-        >
-          <div style={{ margin: "50px" }}>
-            <h1
-              style={{
-                color: "white",
-                marginTop: "10px",
-                textAlign: "center",
-              }}
+        <iframe
+            id="myIframe"
+            src="website.html"
+            style={{
+                position: "relative",
+                width: "100vw",
+                height: "100vh",
+                border: "none",
+            }}
+        ></iframe>
+        {showPopup && (
+            <div
+                style={{
+                    position: "fixed",
+                    right: "10px",
+                    bottom: "10px",
+                    width: "40vw",
+                    height: "90vh",
+                    backgroundColor: "#F1F3F4",
+                    padding: "20px",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    animation: "fadeIn 0.5s",
+                    borderRadius: "15px",
+                    boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
+                    overflow: "auto",
+                }}
             >
-              Image Suggestions
-            </h1>
-            <img
-              src={imageUrl !== "null" ? imageUrl : null}
-              style={{ borderRadius: "10px", margin: "20px" }}
-            />
-            <h1
-              style={{ color: "white", marginTop: "10px", textAlign: "center" }}
-            >
-              Text Suggestions
-            </h1>
-            <p style={{ color: "white", marginTop: "10px", fontSize: 18 }}>
-              {textSuggestions !== "null" ? textSuggestions : null}
-            </p>
-            <button
-              onClick={() => setShowPopup(false)}
-              style={{
-                padding: "10px",
-                borderRadius: "5px",
-                border: "2px solid #ccc",
-                // backgroundColor: "#A2D2FF",
-                color: "black",
-                cursor: "pointer",
-                transition: "0.3s",
-                marginTop: "20px",
-                alignItems: "center",
-                textAlign: "center",
-                alignContent: "center",
-                alignSelf: "center",
-                fontSize: 18,
-              }}
-              onMouseOver={(e) => (e.target.style.opacity = "0.7")}
-              onMouseOut={(e) => (e.target.style.opacity = "1")}
-            >
-              Back
-            </button>
-          </div>
-        </div>
-      )}
-      <div>Input Value in React: {inputValue}</div>
+                <div>
+                    <h1
+                        style={{
+                            color: "#333",
+                            marginBottom: "20px",
+                            textAlign: "center",
+                            fontFamily: "'Roboto', sans-serif",
+                            fontSize: "28px",
+                            borderBottom: "1px solid #eee",
+                            paddingBottom: "10px",
+                        }}
+                    >
+                        Image Suggestions
+                    </h1>
+                    {imageUrl && imageUrl !== "null" && (
+                        <img
+                            src={imageUrl}
+                            alt="Suggested"
+                            style={{
+                                borderRadius: "10px",
+                                margin: "20px 0",
+                                width: "100%",
+                                objectFit: "cover",
+                            }}
+                        />
+                    )}
+                    <h1
+                        style={{
+                            color: "#333",
+                            marginTop: "20px",
+                            textAlign: "center",
+                            fontFamily: "'Roboto', sans-serif",
+                            fontSize: "28px",
+                            borderBottom: "1px solid #eee",
+                            paddingBottom: "10px",
+                        }}
+                    >
+                        Text Suggestions
+                    </h1>
+                    <p
+                        style={{
+                            color: "#666",
+                            fontSize: "18px",
+                            fontFamily: "'Roboto', sans-serif",
+                        }}
+                    >
+                        {textSuggestions !== "null" ? textSuggestions : null}
+                    </p>
+                </div>
+                <button
+                    onClick={() => setShowPopup(false)}
+                    style={{
+                        display: "block",
+                        margin: "30px auto 0",
+                        padding: "10px 30px",
+                        borderRadius: "25px",
+                        border: "none",
+                        backgroundColor: "#4A90E2",
+                        color: "white",
+                        fontSize: "18px",
+                        cursor: "pointer",
+                        transition: "opacity 0.3s, transform 0.3s",
+                        fontFamily: "'Roboto', sans-serif",
+                    }}
+                    onMouseOver={(e) => {
+                        e.target.style.opacity = "0.7";
+                        e.target.style.transform = "scale(1.05)";
+                    }}
+                    onMouseOut={(e) => {
+                        e.target.style.opacity = "1";
+                        e.target.style.transform = "scale(1)";
+                    }}
+                >
+                    Close
+                </button>
+            </div>
+        )}
+        <div>Input Value in React: {inputValue}</div>
     </div>
-  );
+);
 };
 
 export default App;
