@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 const App = () => {
   const [inputValue, setInputValue] = useState('');
   const [boundingBox, setBoundingBox] = useState(null);
+  const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
     const iframe = document.getElementById('myIframe');
@@ -54,6 +55,11 @@ const App = () => {
       iframeDocument.addEventListener('click', function (e) {
         const { clientX, clientY } = e;
 
+        const width = e.target.clientWidth;
+        const height = e.target.clientHeight;
+        const offLeft = e.target.offsetLeft;
+        const offTop = e.target.offsetTop;
+
         if (['dynamicInput', 'dynamicButton', 'dynamicButton2'].includes(e.target.id)) {
           return;
         }
@@ -66,8 +72,8 @@ const App = () => {
         const inputElement = iframeDocument.createElement('input');
         inputElement.type = 'text';
         inputElement.style.position = 'absolute';
-        inputElement.style.left = `${clientX}px`;
-        inputElement.style.top = `${clientY - 50}px`;
+        inputElement.style.left = `${offLeft}px`;
+        inputElement.style.top = `${(offTop - 60) >= 0 ? offTop - 60 : offTop + height + 20}px`;
         inputElement.id = 'dynamicInput';
         inputElement.style.width = '200px'; // Adjust the width as needed
         inputElement.style.padding = '10px';
@@ -84,16 +90,14 @@ const App = () => {
         suggestDesigns.id = 'dynamicButton2';
         suggestDesigns.innerHTML = '&#x1f3a8 Suggest Designs'; 
         suggestDesigns.style.position = 'absolute';
-        suggestDesigns.style.left = `${clientX + 230}px`;
-        suggestDesigns.style.top = `${clientY - 50}px`;
+        suggestDesigns.style.left = `${offLeft + 235}px`;
+        suggestDesigns.style.top = `${(offTop - 60) >= 0 ? offTop - 60 : offTop + height + 20}px`;
         suggestDesigns.style.border = '2px solid #C9FF55';
         suggestDesigns.style.padding = '10px 15px';
         suggestDesigns.style.borderRadius = '8px';
         suggestDesigns.style.backgroundColor = '#C9FF55';
         suggestDesigns.style.color = 'black';
         suggestDesigns.style.cursor = 'pointer';
-
-        
 
         const analyzeButton = iframeDocument.getElementById('dynamicButton');
         if (analyzeButton) analyzeButton.remove();
@@ -102,15 +106,14 @@ const App = () => {
         analyzeDesigns.id = 'dynamicButton';
         analyzeDesigns.innerHTML = '&#x1f50d Analyze UI/UX';
         analyzeDesigns.style.position = 'absolute';
-        analyzeDesigns.style.left = `${clientX + 385}px`;  // Adjusted the button's position to give space between buttons
-        analyzeDesigns.style.top = `${clientY - 50}px`;
+        analyzeDesigns.style.left = `${offLeft + 385}px`;  // Adjusted the button's position to give space between buttons
+        analyzeDesigns.style.top = `${(offTop - 60) >= 0 ? offTop - 60 : offTop + height + 20}px`;
         analyzeDesigns.style.border = '2px solid #FF99EF';
         analyzeDesigns.style.padding = '10px 15px';
         analyzeDesigns.style.borderRadius = '8px';
         analyzeDesigns.style.backgroundColor = '#FFD1F7';
         analyzeDesigns.style.color = 'black';
         analyzeDesigns.style.cursor = 'pointer';
-
 
         // Attach event to handle input
         inputElement.addEventListener('input', handleInput);
@@ -122,10 +125,20 @@ const App = () => {
               // If input is empty on Enter, remove the input element
               inputElement.remove();
               suggestDesigns.remove();
-              analyzeDesigns.remove()
+              analyzeDesigns.remove();
+            }
+          }
+          else if (event.key === 'Escape') {
+            if (inputElement && suggestDesigns && analyzeDesigns) {
+              // If input is empty on Enter, remove the input element
+              inputElement.remove();
+              suggestDesigns.remove();
+              analyzeDesigns.remove();
             }
           }
         });
+
+
 
         iframeDocument.body.appendChild(inputElement);
         iframeDocument.body.appendChild(suggestDesigns);
