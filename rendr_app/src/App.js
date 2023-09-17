@@ -1,10 +1,38 @@
 import React, { useEffect, useState } from "react";
+import { BeatLoader } from "react-spinners"; // Importing one of the spinners
 
 const App = () => {
   const [inputValue, setInputValue] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);
+  const [imageUrl2, setImageUrl2] = useState(null); // TODO: Remove this line
+  const [imageUrl3, setImageUrl3] = useState(null); // TODO: Remove this line
   const [textSuggestions, setTextSuggestions] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Function to switch to the next image
+  const nextImage = () => {
+    if (currentImageIndex < 2) setCurrentImageIndex(currentImageIndex + 1);
+  };
+
+  // Function to switch to the previous image
+  const prevImage = () => {
+    if (currentImageIndex > 0) setCurrentImageIndex(currentImageIndex - 1);
+  };
+
+  // Use the currentImageIndex to get the current image URL
+  const getCurrentImageUrl = () => {
+    switch (currentImageIndex) {
+      case 0:
+        return imageUrl;
+      case 1:
+        return imageUrl2;
+      case 2:
+        return imageUrl3;
+      default:
+        return null;
+    }
+  };
 
   const sendToPython = () => {
     // setShowPopup(false);
@@ -22,6 +50,8 @@ const App = () => {
       .then((data) => {
         console.log(data);
         setImageUrl(data.image_url);
+        setImageUrl2(data.image_url2); // TODO: Remove this line
+        setImageUrl3(data.image_url3); // TODO: Remove this line
         setTextSuggestions(data.text_url);
       })
       .catch((error) => console.error("Error:", error));
@@ -123,7 +153,7 @@ const App = () => {
         inputElement.focus();
       });
     });
-  }, [showPopup, imageUrl]);
+  }, [showPopup, imageUrl, imageUrl2, imageUrl3]);
 
   return (
     <div style={{ margin: 0, padding: 0 }}>
@@ -169,24 +199,92 @@ const App = () => {
             >
               Image Suggestions
             </h1>
-            {imageUrl && imageUrl !== "null" && (
-              <div
+            <div>
+              <button
+                onClick={prevImage}
+                disabled={currentImageIndex === 0}
                 style={{
-                  display: "flex",
-                  justifyContent: "center", // This centers it horizontally
-                  alignItems: "center", // This centers it vertically
+                  padding: "10px 15px",
+                  backgroundColor: "#4A90E2",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "50%",
+                  fontSize: "20px",
+                  marginRight: "10px",
+                  transition: "opacity 0.3s, transform 0.3s",
+                  cursor: currentImageIndex === 0 ? "not-allowed" : "pointer",
+                }}
+                onMouseOver={(e) => {
+                  if (currentImageIndex !== 0) {
+                    e.target.style.opacity = "0.7";
+                    e.target.style.transform = "scale(1.05)";
+                  }
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.opacity = "1";
+                  e.target.style.transform = "scale(1)";
                 }}
               >
-                <img
-                  src={imageUrl}
-                  alt="Suggested"
+                ←
+              </button>{" "}
+              {/* Disable if we're at the first image */}
+              {getCurrentImageUrl() === null ? (
+                <div
                   style={{
-                    width: "60%",
-                    objectFit: "cover",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100px",
                   }}
-                />
-              </div>
-            )}
+                >
+                  <BeatLoader color="#333" />
+                </div>
+              ) : getCurrentImageUrl() !== "null" ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginBottom: "20px",
+                  }}
+                >
+                  <img
+                    src={getCurrentImageUrl()}
+                    alt="Suggested"
+                    style={{ width: "60%", objectFit: "cover" }}
+                  />
+                </div>
+              ) : null}
+              <button
+                onClick={nextImage}
+                disabled={currentImageIndex === 2}
+                style={{
+                  padding: "10px 15px",
+                  backgroundColor: "#4A90E2",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "50%",
+                  fontSize: "20px",
+                  marginLeft: "10px",
+                  transition: "opacity 0.3s, transform 0.3s",
+                  cursor: currentImageIndex === 2 ? "not-allowed" : "pointer",
+                }}
+                onMouseOver={(e) => {
+                  if (currentImageIndex !== 2) {
+                    e.target.style.opacity = "0.7";
+                    e.target.style.transform = "scale(1.05)";
+                  }
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.opacity = "1";
+                  e.target.style.transform = "scale(1)";
+                }}
+              >
+                →
+              </button>{" "}
+              {/* Disable if we're at the last image */}
+            </div>
+
             <h1
               style={{
                 color: "#333",
@@ -207,11 +305,32 @@ const App = () => {
                 fontFamily: "'Roboto', sans-serif",
               }}
             >
-              {textSuggestions !== "null" ? textSuggestions : null}
+              {textSuggestions === null ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100px",
+                  }}
+                >
+                  {" "}
+                  {/* Adjust height as necessary */}
+                  <BeatLoader color="#333" />
+                </div>
+              ) : textSuggestions !== "null" ? (
+                <p /*... styles ...*/>{textSuggestions}</p>
+              ) : null}
             </p>
           </div>
           <button
-            onClick={() => setShowPopup(false)}
+            onClick={() => {
+              setShowPopup(false);
+              setImageUrl(null);
+              setImageUrl2(null);
+              setImageUrl3(null);
+              setTextSuggestions(null);
+            }}
             style={{
               display: "block",
               margin: "30px auto 0",
