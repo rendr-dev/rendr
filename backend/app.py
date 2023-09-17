@@ -9,7 +9,7 @@ import os
 
 # load_dotenv()
 # openai.api_key = os.getenv("OPENAI_API_KEY")
-openai.api_key = "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"
+openai.api_key = "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"
 
 from flask_cors import CORS
 
@@ -79,6 +79,9 @@ def get_html_edit_endpoint():
     original_html_code = request.json.get("original_html_code", "")
     original_css_code = request.json.get("original_css_code", "")
     html_code, css_code = edit_html(original_html_code, original_css_code, description)
+    html_code = html_code.strip()
+    if (html_code[0:4] == "html"):
+        html_code = html_code[4:]
     return jsonify({'html_code': html_code, 'css_code': css_code})
 
 
