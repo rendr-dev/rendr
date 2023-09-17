@@ -30,12 +30,13 @@ const App = () => {
             // Create a new bounding box if it doesn't exist
             const newBoundingBox = iframeDocument.createElement('div');
             newBoundingBox.style.position = 'absolute';
-            newBoundingBox.style.border = '10px solid rgba(255, 0, 0, 0.3)';
+            newBoundingBox.style.border = '5px solid rgba(0, 148, 255, 0.5)';
             newBoundingBox.style.pointerEvents = 'none';
             newBoundingBox.style.left = `${offLeft}px`;
             newBoundingBox.style.top = `${offTop}px`;
             newBoundingBox.style.width = `${width}px`; // Adjust the width as needed
             newBoundingBox.style.height = `${height}px`; // Adjust the height as needed
+            newBoundingBox.style.borderRadius = '10px';
             iframeDocument.body.appendChild(newBoundingBox);
             setBoundingBox(newBoundingBox);
           // }
