@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 const App = () => {
 
-  const htmlString = `
+  var htmlString = `
   <!DOCTYPE html>
   <html lang="en">
   <head>
@@ -70,7 +70,7 @@ const App = () => {
   </body>
   </html>
   `;
-  const cssString = `<style>${`
+  var cssString = `
   /* Header styles */
   #header {
     background-color: #333;
@@ -152,12 +152,13 @@ const App = () => {
     border: none;
     cursor: pointer;
   }
-  `}</style>`;
-  const combinedString = `${htmlString}${cssString}`;
+  `;
+  // var combinedString = `${htmlString}<style>${cssString}</style>`;
 
   const [inputValue, setInputValue] = useState('');
   const [boundingBox, setBoundingBox] = useState(null);
   const [clicked, setClicked] = useState(false);
+  const [combinedString, setCombinedString] = useState(`${htmlString}<style>${cssString}</style>`)
 
   useEffect(() => {
     const iframe = document.getElementById('myIframe');
@@ -283,14 +284,6 @@ const App = () => {
               suggestDesigns.remove();
               analyzeDesigns.remove();
             }
-          }
-          else if (event.key === 'Escape') {
-            if (inputElement && suggestDesigns && analyzeDesigns) {
-              // If input is empty on Enter, remove the input element
-              inputElement.remove();
-              suggestDesigns.remove();
-              analyzeDesigns.remove();
-            }
             fetch('http://localhost:5000/get/edit', {
               method: 'POST',
               headers: {
@@ -303,15 +296,28 @@ const App = () => {
               console.log('HTML Code:', data.html_code);
               console.log('CSS Code:', data.css_code);
               e.target.innerHTML = data.html_code;
-              cssString = data.css_code
+              cssString = data.css_code.toString()
+              console.log(iframeDocument.documentElement.outerHTML);
+              let totalHtml = iframeDocument.documentElement.outerHTML;
+              setCombinedString(`${totalHtml}<style>${cssString}</style>`);
+              console.log(combinedString);
+
             })
             .catch((error) => {
               console.error('Error:', error);
             });
-
             // e.target.innerHTML = "<h1>HELLO</h1>";
           }
-        });
+          
+          else if (event.key === 'Escape') {
+            if (inputElement && suggestDesigns && analyzeDesigns) {
+              // If input is empty on Enter, remove the input element
+              inputElement.remove();
+              suggestDesigns.remove();
+              analyzeDesigns.remove();
+            }
+            
+      }});
 
 
 

@@ -7,9 +7,9 @@ import json
 import os
 
 
-load_dotenv()
+# load_dotenv()
 # openai.api_key = os.getenv("OPENAI_API_KEY")
-openai.api_key = "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"
+openai.api_key = "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"
 
 from flask_cors import CORS
 
