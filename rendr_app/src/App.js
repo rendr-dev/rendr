@@ -31,9 +31,6 @@ const App = () => {
     let enterButton;
     let suggestionsButton;
 
-    // Rerender the image whenever imageUrl changes.
-    setImageUrl("https://example.com/image.jpg");
-
     const handleInput = (e) => {
       setInputValue(e.target.value);
     };
@@ -163,7 +160,7 @@ const App = () => {
               padding: "10px",
               borderRadius: "5px",
               border: "2px solid #ccc",
-              backgroundColor: "#A2D2FF", // Baby Blue Color
+              backgroundColor: "#A2D2FF",
               color: "black",
               cursor: "pointer",
               transition: "0.3s",
