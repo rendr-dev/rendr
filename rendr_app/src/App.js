@@ -292,8 +292,8 @@ const App = () => {
     // setShowPopup(false);
     const clickedElement = localStorage.getItem("clickedElement");
 
-    // fetch("https://hackmit-c56114350684.herokuapp.com/retrieve", {
-    fetch("http://localhost:8000/retrieve", {
+    fetch("https://hackmit-c56114350684.herokuapp.com/retrieve", {
+      // fetch("http://localhost:8000/retrieve", {
       // TODO: change this to the hosted backend
       method: "POST",
       headers: {
@@ -621,8 +621,8 @@ const App = () => {
               suggestionsButton.remove();
               analyzeDesigns.remove();
             }
-            // fetch("https://hackmit-c56114350684.herokuapp.com/get/edit", {
-            fetch("http://localhost:8000/get/edit", {
+            fetch("https://hackmit-c56114350684.herokuapp.com/get/edit", {
+              // fetch("http://localhost:8000/get/edit", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
