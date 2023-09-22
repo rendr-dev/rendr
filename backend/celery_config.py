@@ -5,8 +5,17 @@
 # CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
 # Redis URL for Heroku
-BROKER_URL = 'redis://:pea2b5f44d50144465b6f57cfa3089c7cd03d5540587a7d12e6d18388e13800a7@ec2-54-160-230-30.compute-1.amazonaws.com:27469'
-CELERY_RESULT_BACKEND = 'redis://:pea2b5f44d50144465b6f57cfa3089c7cd03d5540587a7d12e6d18388e13800a7@ec2-54-160-230-30.compute-1.amazonaws.com:27469'
+# BROKER_URL = 'redis://:pea2b5f44d50144465b6f57cfa3089c7cd03d5540587a7d12e6d18388e13800a7@ec2-54-160-230-30.compute-1.amazonaws.com:27469'
+# CELERY_RESULT_BACKEND = 'redis://:pea2b5f44d50144465b6f57cfa3089c7cd03d5540587a7d12e6d18388e13800a7@ec2-54-160-230-30.compute-1.amazonaws.com:27469'
+
+import os
+import ssl
+
+REDIS_URL = os.environ.get('REDIS_URL', 'default_redis_url_if_not_set')
+
+BROKER_URL = REDIS_URL + '?ssl_cert_reqs=CERT_NONE'
+CELERY_RESULT_BACKEND = REDIS_URL + '?ssl_cert_reqs=CERT_NONE'
+
 
 # SSL support for the Redis broker
 # BROKER_USE_SSL = {
