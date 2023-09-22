@@ -26,19 +26,41 @@ def get_html_endpoint():
     html_code, css_code = result.get()
     return jsonify({'html_code': html_code, 'css_code': css_code})
 
+# @app.route("/get/edit", methods=["POST"])
+# def get_html_edit_endpoint():
+#     description = request.json.get('description', "")
+#     original_html_code = request.json.get("original_html_code", "")
+#     original_css_code = request.json.get("original_css_code", "")
+#     result = edit_html.apply_async(args=[original_html_code, original_css_code, description])
+#     html_code, css_code = result.get()
+#     html_code = html_code.strip()
+#     if (html_code[0:4] == "html"):
+#         html_code = html_code[4:]
+#     return jsonify({'html_code': html_code, 'css_code': css_code})
 @app.route("/get/edit", methods=["POST"])
 def get_html_edit_endpoint():
     description = request.json.get('description', "")
     original_html_code = request.json.get("original_html_code", "")
     original_css_code = request.json.get("original_css_code", "")
     result = edit_html.apply_async(args=[original_html_code, original_css_code, description])
-    html_code, css_code = result.get()
-    html_code = html_code.strip()
-    if (html_code[0:4] == "html"):
-        html_code = html_code[4:]
-    return jsonify({'html_code': html_code, 'css_code': css_code})
+    return jsonify({'task_id': result.id})
+
+@app.route("/task-status/<task_id>", methods=["GET"])
+def get_task_status(task_id):
+    task = edit_html.AsyncResult(task_id)
+    return jsonify({'status': task.status})
+
+@app.route("/get-result/<task_id>", methods=["GET"])
+def get_result(task_id):
+    task = edit_html.AsyncResult(task_id)
+    if task.state == 'SUCCESS':
+        html_code, css_code = task.result
+        return jsonify({'html_code': html_code, 'css_code': css_code})
+    else:
+        return jsonify({'error': 'Task not finished or failed'}), 400
 
 
+# Get the suggested designs from GPT-3.5
 @app.route('/retrieve', methods=['POST'])
 def retrieve_element():
     clicked_element = request.form.get('clickedElement')

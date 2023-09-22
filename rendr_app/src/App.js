@@ -559,54 +559,36 @@ const App = () => {
           this.style.transform = "scale(1)";
         });
 
-        // Attach event to handle Enter key press
-        // inputElement.addEventListener("keydown", (event) => {
-        //   if (event.key === "Enter") {
-        //     if (
-        //       inputElement &&
-        //       suggestionsButton &&
-        //       inputElement.value.trim() === ""
-        //     ) {
-        //       // If input is empty on Enter, remove the input element
-        //       inputElement.remove();
-        //       suggestionsButton.remove();
-        //       analyzeDesigns.remove();
-        //     }
-        //     fetch("http://http://172.31.37.248:8000/get/edit", {
-        //       method: "POST",
-        //       headers: {
-        //         "Content-Type": "application/json",
-        //       },
-        //       body: JSON.stringify({
-        //         description: inputElement.value.trim(),
-        //         original_html_code: e.target.innerHTML,
-        //         original_css_code: cssString,
-        //       }),
-        //     })
-        //       .then((response) => response.json())
-        //       .then((data) => {
-        //         console.log("HTML Code:", data.html_code);
-        //         console.log("CSS Code:", data.css_code);
-        //         e.target.innerHTML = data.html_code;
-        //         cssString = data.css_code.toString();
-        //         console.log(iframeDocument.documentElement.outerHTML);
-        //         htmlString = iframeDocument.documentElement.outerHTML;
-        //         setCombinedString(`${htmlString}<style>${cssString}</style>`);
-        //         console.log(combinedString);
-        //       })
-        //       .catch((error) => {
-        //         console.error("Error:", error);
-        //       });
-        //     // e.target.innerHTML = "<h1>HELLO</h1>";
-        //   } else if (event.key === "Escape") {
-        //     if (inputElement && suggestionsButton && analyzeDesigns) {
-        //       // If input is empty on Enter, remove the input element
-        //       inputElement.remove();
-        //       suggestionsButton.remove();
-        //       analyzeDesigns.remove();
-        //     }
-        //   }
-        // });
+        function fetchResult(taskId) {
+          fetch(
+            `https://hackmit-c56114350684.herokuapp.com/get-result/${taskId}`
+          )
+            .then((response) => response.json())
+            .then((resultData) => {
+              e.target.innerHTML = resultData.html_code;
+              cssString = resultData.css_code.toString();
+              console.log(iframeDocument.documentElement.outerHTML);
+              htmlString = iframeDocument.documentElement.outerHTML;
+              setCombinedString(`${htmlString}<style>${cssString}</style>`);
+              console.log(combinedString);
+              if (inputElement) {
+                inputElement.remove();
+              }
+              if (suggestionsButton) {
+                suggestionsButton.remove();
+              }
+              if (analyzeDesigns) {
+                analyzeDesigns.remove();
+              }
+              const existingBox = iframeDocument.querySelector(".boundingBox");
+              if (existingBox) {
+                existingBox.remove();
+              }
+            })
+            .catch((error) => {
+              console.error("Error fetching result:", error);
+            });
+        }
 
         // Attach event to handle Enter key press
         inputElement.addEventListener("keydown", (event) => {
@@ -622,7 +604,6 @@ const App = () => {
               analyzeDesigns.remove();
             }
             fetch("https://hackmit-c56114350684.herokuapp.com/get/edit", {
-              // fetch("http://localhost:8000/get/edit", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -635,40 +616,35 @@ const App = () => {
             })
               .then((response) => response.json())
               .then((data) => {
-                // console.log('HTML Code:', data.html_code);
-                // console.log('CSS Code:', data.css_code);
-                e.target.innerHTML = data.html_code;
-                cssString = data.css_code.toString();
-                console.log(iframeDocument.documentElement.outerHTML);
-                htmlString = iframeDocument.documentElement.outerHTML;
-                setCombinedString(`${htmlString}<style>${cssString}</style>`);
-                console.log(combinedString);
-                if (inputElement) {
-                  inputElement.remove();
-                }
-                if (suggestionsButton) {
-                  suggestionsButton.remove();
-                }
-                if (analyzeDesigns) {
-                  analyzeDesigns.remove();
-                }
-                const existingBox =
-                  iframeDocument.querySelector(".boundingBox");
-                if (existingBox) {
-                  existingBox.remove();
-                }
+                const taskId = data.task_id;
+                // Poll for the task result every 2 seconds
+                const pollingInterval = setInterval(() => {
+                  fetch(
+                    `https://hackmit-c56114350684.herokuapp.com/task-status/${taskId}`
+                  )
+                    .then((response) => response.json())
+                    .then((statusData) => {
+                      if (statusData.status === "SUCCESS") {
+                        // Once task is done, clear the polling interval and get the result
+                        clearInterval(pollingInterval);
+                        fetchResult(taskId);
+                      } else if (statusData.status === "FAILURE") {
+                        // Handle task failure, and stop polling
+                        clearInterval(pollingInterval);
+                        console.error("Task failed!");
+                      }
+                    })
+                    .catch((error) => {
+                      clearInterval(pollingInterval);
+                      console.error("Error polling for status:", error);
+                    });
+                }, 2000); // Poll every 2 seconds
               })
               .catch((error) => {
                 console.error("Error:", error);
               });
+
             // e.target.innerHTML = "<h1>HELLO</h1>";
-          } else if (event.key === "Escape") {
-            if (inputElement && suggestionsButton && analyzeDesigns) {
-              // If input is empty on Enter, remove the input element
-              inputElement.remove();
-              suggestionsButton.remove();
-              analyzeDesigns.remove();
-            }
           }
         });
 
