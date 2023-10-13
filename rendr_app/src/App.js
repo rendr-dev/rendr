@@ -4,250 +4,150 @@ import { BeatLoader } from "react-spinners"; // Importing one of the spinners
 const App = () => {
   var htmlString = `
   <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Portfolio</title>
-  </head>
-  <body>
-    <header id="header" style="border-radius: 10px;">
-      <h1>My Portfolio</h1>
-    </header>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Paul's Flower Shop</title>
+</head>
+<body>
+  <header id="header" style="border-radius: 10px;">
+    <h1>Paul's Flower Shop</h1>
+  </header>
 
-    <div style="margin: 10px;"/>
-
-    <section id="intro">
-      <div class="icon-and-text">
-          <h1><span class="emoji" style="font-size: 36px;">&#128075</span></h1>
-          <h1 style="color: white">welcome to <span style="color: #0094FF; font-family: 'Source Code Pro', monospace;">rendr</span> - front-end engineering made easy.</h1>
+  <section id="featured-flowers">
+    <h2>Featured Flowers</h2>
+    <div id="flower-list">
+      <div class="flower-item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Rosa_Ingrid_Bergman_2018-07-16_6611_%28cropped%29.jpg" alt="Rose">
+        <h3>Rose</h3>
+        <p>A classic symbol of love and beauty.</p>
+        <a href="#">Buy Now</a>
       </div>
-      <h3 style="margin-left: 3.25%; color: lightgray;"><i>Create</i>, <i>modify</i>, and <i>re-render</i> webpages by <u>directly interacting with components</u> and making creative changes with AI.</h3>
-
-      <div style="margin:12px" />      
-      
-      <div class="icon-and-text" style="margin-bottom:12px">
-        <div class="circle">1</div>
-        <h3 style="color: white; font-weight: normal; margin-top: 7px"> To use rendr, move your mouse <span class="emoji">&#x1f42d</span>around to target <span class="emoji">&#x1f3af</span>any component of this webpage you'd like to change. </h3>
+      <div class="flower-item">
+        <img src="https://www.colorblends.com/wp-content/uploads/2020/01/1504_BestPurple_CGC9830sq-1024x1024.jpg" alt="Tulip">
+        <h3>Tulip</h3>
+        <p>Bright and perfect for spring.</p>
+        <a href="#">Buy Now</a>
       </div>
-
-      <div class="icon-and-text" style="margin-bottom:12px">
-        <div class="circle">2</div>
-        <h3 style="color: white; font-weight: normal; margin-top: 7px"> Select any target component, and click on it to interact. </h3>
+      <div class="flower-item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Lilium_longiflorum_%28Easter_Lily%29.JPG/1200px-Lilium_longiflorum_%28Easter_Lily%29.JPG" alt="Lily">
+        <h3>Lily</h3>
+        <p>Elegant and fragrant.</p>
+        <a href="#">Buy Now</a>
       </div>
-
-      <div class="icon-and-text" style="margin-bottom:12px">
-        <div class="circle">3</div>
-        <h3 style="color: white; font-weight: normal; margin-top: 7px"> To make a simple UI change <span class="emoji">&#x1f3a8</span>, type a specific prompt <span class="emoji">&#x1f4dd</span> for the targeted component (ie. Add more material to this section about hackathons). </h3>
-      </div>
-        
-
-      <div class="icon-and-text" style="margin-bottom:12px">
-        <div class="circle">4</div>
-        <h3 style="color: white; font-weight: normal; margin-top: 7px"> Hit enter to submit the changes! Wait up to 20-30 seconds for the change (we hope to optimize later! <span class="emoji">&#x1f4a8</span>). </h3>
-      </div>
-      
-
-      <div class="icon-and-text" style="margin-bottom:12px">
-        <div class="circle">5</div>
-        <h3 style="color: white; font-weight: normal; margin-top: 7px"> Don't fret if you run into creator's block! You can also click on "Suggest Designs" <span class="emoji">&#x1f5bc</span> to recommend generated image and text suggestions.</h3>
-      </div>
-
-      <div class="icon-and-text" style="margin-bottom:12px">
-      <div class="circle">6</div>
-      <h3 style="color: white; font-weight: bold; margin-top: 7px">Key commands: [enter] - submit prompt for changing UI, [esc] - close toolbar, [command-x] - saves your changed UI design as HTML + CSS files</h3>
+      <!-- More flowers can be added similarly -->
     </div>
-    </section>
+</section>
 
-    <section id="about">
-      <h2>About Me</h2>
-      <section id="interest">
-        <h3>Interest in Sports</h3>
-        <p>Through my childhood and career, I have been interested in mainly basketball.</p>
-      </section>
-  
-      <section id="work">
-        <h3>Past Career</h3>
-        <p>Over my career, I played professionally in the NBA for the Miami Heat for a few years, where I won the NBA Championships twice. I've also played for the Cleveland Cavaliers and Los Angeles Lakers.</p>
-      </section>
-  
-      <section id="projects">
-        <h2>Favorite Parks</h2>
-        <div id="project-container">
-          <div class="project">
-            <h3>Mount Rainier National Park</h3>
-            <p>Nestled in the Cascade Range of Washington state, Mount Rainier National Park is a paradise for nature enthusiasts. Its centerpiece, Mount Rainier, is an active stratovolcano adorned with glaciers and subalpine meadows. Visitors can explore a network of hiking trails that lead to awe-inspiring vistas, pristine lakes, and waterfalls. The park is a haven for wildlife, including marmots, black bears, and elk.</p>
-          </div>
-          <div class="project">
-            <h3>Yellowstone National Park</h3>
-            <p>Yellowstone is a geological wonderland and the first national park in the world. Located primarily in Wyoming but extending into Montana and Idaho, it's famous for its geothermal features like Old Faithful geyser and the Grand Prismatic Spring. The park's diverse ecosystems support iconic wildlife, including bison, grizzly bears, and wolves. Visitors can marvel at dramatic canyons, lush forests, and the Yellowstone River.
-            </p>
-          </div>
-          <div class="project">
-            <h3>Yosemite National Park</h3>
-            <p>Situated in California's Sierra Nevada mountains, Yosemite National Park is renowned for its breathtaking landscapes. Towering granite cliffs, such as El Capitan and Half Dome, dominate the park's skyline. Yosemite Valley boasts lush meadows, cascading waterfalls like Yosemite Falls, and the iconic Merced River. Hikers and climbers from around the world come to experience its natural beauty.</p>
-          </div>
-        </div>
-      </section>
-  
-      <section id="hobby">
-        <h3>Hobby for University of Texas (Longhorn) Football</h3>
-        <p>As a Longhorn fan, I always make sure to catch the football games and support the team.</p>
-      </section>
-    </section>
-  
-    <section id="contact">
-      <h2>Contact Me</h2>
-      <form>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" style="border-radius: 10px; border-color: black;">
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" style="border-radius: 10px; border-color: black;">
-        
-        <label for="message">Message:</label>
-        <input type="message" id="message" name="message" style="border-radius: 10px; border-color: black;"></input>
-        <div style="margin:10px"/>
 
-        <input type="submit" value="Send" style="background-color: black; border-radius: 10px; border-color: black;">
-      </form>
-    </section>
-  </body>
-  </html>
+  <section id="about">
+    <h2>About Our Shop</h2>
+    <p>We offer a wide variety of fresh flowers for all occasions. From birthdays to weddings, our flowers are perfect for every event.</p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" style="border-radius: 10px; border-color: black;">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" style="border-radius: 10px; border-color: black;">
+      <label for="message">Message:</label>
+      <input type="message" id="message" name="message" style="border-radius: 10px; border-color: black;"></input>
+      <div style="margin:10px"/>
+      <input type="submit" value="Send" style="background-color: black; border-radius: 10px; border-color: black;">
+    </form>
+  </section>
+</body>
+</html>
+
   `;
   var cssString = `
   /* Header styles */
-  #header {
-    background-color: #0094FF;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  h1 {
-    margin: 0;
-  }
-  
-  /* About section styles */
-  #about {
-    background-color: #f2f2f2;
-    padding: 20px;
-    border-radius: 10px;
-  }
+#header {
+  background-color: #0094FF;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
 
-  #intro {
-    background-color: #282c34;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  
-  /* Subsection styles */
-  section {
-    margin-bottom: 20px;
-  }
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 20px;
+}
 
-  body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
-  
-  h2 {
-    margin: 0 0 10px;
-  }
-  
-  h3 {
-    margin: 0 0 10px;
-  }
-  
-  /* Projects section styles */
-  #projects {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 20px;
-  }
-  
-  #project-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
-  }
-  
-  .project {
-    background-color: #fff;
-    padding: 20px;
-  }
-  
-  .project:nth-child(1) h3,
-  .project:nth-child(2) h3,
-  .project:nth-child(3) h3 {
-    margin-top: 0;
-  }
-  
-  /* Contact section styles */
-  #contact {
-    background-color: #e6e6e6;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 8px;
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  textarea {
-    width: 80%;
-    padding: 10px;
-    margin-bottom: 16px;
-  }
+#featured-flowers {
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 10px;
+}
 
-  input[type="message"],
-  textarea {
-    width: 80%;
-    height: 100px;
-    padding: 10px;
-    margin-bottom: 16px;
-  }
-  
-  input[type="submit"] {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-  }
+#flower-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}
 
-  .circle {
-    width: 30px;
-    height: 30px;
-    background-color: #007bff; /* Circle background color */
-    color: #fff; /* Text color */
-    border-radius: 50%; /* Makes it a circle */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    font-weight: bold;
-    margin-left: 30px;
-    margin-right:10px;
-  }
-  .emoji {
-    padding-right: 5px;
-    font-size: 18px;
-  }
+.flower-item {
+  background-color: #fff;
+  padding: 20px;
+  text-align: center;
+}
 
-  .icon-and-text{
-    flex: 1;
-    display: inline-flex;
-    flex-direction: row;
-    align-items: center;
-  }
+.flower-item img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;  /* This ensures the images maintain their aspect ratio while filling the size */
+  border-radius: 10px;
+}
 
-  .underline {
-    text-decoration: underline;
-  }
+
+.flower-item a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+}
+
+#about, #contact {
+  background-color: #e6e6e6;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 16px;
+}
+
+input[type="message"],
+textarea {
+  width: 80%;
+  height: 100px;
+  padding: 10px;
+  margin-bottom: 16px;
+}
+
+input[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
   
   `;
 
@@ -334,12 +234,16 @@ const App = () => {
       );
       downloadFile(cssString, "styles.css", "text/css");
     }
+    if (event.key === "Escape") {
+      setShowPopup(false);
+    }
     // event.stopPropagation();
     // event.preventDefault();
   }, []);
 
   useEffect(() => {
     const iframe = document.getElementById("myIframe");
+
     const handleInput = (e) => {
       setInputValue(e.target.value);
     };
@@ -393,6 +297,11 @@ const App = () => {
           },
           { once: true }
         ); // This ensures the listener is removed after executing once
+
+        // Make the bounding box disappear after 5 seconds
+        setTimeout(() => {
+          newBoundingBox.remove();
+        }, 5000);
       });
 
       iframeDocument.addEventListener("click", function (e) {
@@ -435,6 +344,7 @@ const App = () => {
         if (existingBox) {
           existingBox.remove();
         }
+
         // Attach mouseout event to the hovered element
         iframeDocument.addEventListener(
           "mouseout",
@@ -443,6 +353,17 @@ const App = () => {
           },
           { once: true }
         );
+
+        // Make the bounding box disappear after 5 seconds
+        setTimeout(() => {
+          newBoundingBox.remove();
+        }, 5000);
+
+        iframeDocument.addEventListener("keydown", function (event) {
+          if (event.key === "Escape") {
+            newBoundingBox.remove();
+          }
+        });
       });
 
       // Click
@@ -462,12 +383,6 @@ const App = () => {
         ) {
           return;
         }
-
-        // Remove existing elements if they exist
-        // ["dynamicInput", "dynamicButton", "dynamicButton2"].forEach((id) => {
-        //   const existingElement = iframeDocument.getElementById(id);
-        //   if (existingElement) existingElement.remove();
-        // });
 
         const existingInput = iframeDocument.getElementById("dynamicInput");
         if (existingInput) existingInput.remove();
@@ -494,7 +409,7 @@ const App = () => {
         // Create analyze design button
         const analyzeDesigns = iframeDocument.createElement("button");
         analyzeDesigns.id = "dynamicButton";
-        analyzeDesigns.innerHTML = "&#x1f50d Analyze UI/UX";
+        analyzeDesigns.innerHTML = "&#x1f50d Community Designs (WIP)";
         analyzeDesigns.style.position = "absolute";
         analyzeDesigns.style.left = `${offLeft + 390}px`; // Adjusted the button's position to give space between buttons
         analyzeDesigns.style.top = `${
@@ -590,9 +505,13 @@ const App = () => {
             });
         }
 
-        // Attach event to handle Enter key press
+        // Attach event to handle Enter key press and Escape key press
         inputElement.addEventListener("keydown", (event) => {
+          setBoundingBox(null);
           if (event.key === "Enter") {
+            // Change cursor to loading animation
+            document.body.style.cursor = "wait";
+
             if (
               inputElement &&
               suggestionsButton &&
@@ -628,21 +547,40 @@ const App = () => {
                         // Once task is done, clear the polling interval and get the result
                         clearInterval(pollingInterval);
                         fetchResult(taskId);
+                        // Reset cursor
+                        document.body.style.cursor = "default";
                       } else if (statusData.status === "FAILURE") {
                         // Handle task failure, and stop polling
                         clearInterval(pollingInterval);
                         console.error("Task failed!");
+                        // Reset cursor
+                        document.body.style.cursor = "default";
                       }
                     })
                     .catch((error) => {
                       clearInterval(pollingInterval);
                       console.error("Error polling for status:", error);
+                      // Reset cursor
+                      document.body.style.cursor = "default";
                     });
                 }, 2000); // Poll every 2 seconds
               })
               .catch((error) => {
                 console.error("Error:", error);
+                // Reset cursor
+                document.body.style.cursor = "default";
               });
+          } else if (event.key === "Escape") {
+            // If Escape key is pressed, remove the input element, suggestionsButton, and analyzeDesigns
+            if (inputElement) {
+              inputElement.remove();
+            }
+            if (suggestionsButton) {
+              suggestionsButton.remove();
+            }
+            if (analyzeDesigns) {
+              analyzeDesigns.remove();
+            }
           }
         });
 
@@ -859,7 +797,7 @@ const App = () => {
           </button>
         </div>
       )}
-      <div>Input Value in React: {inputValue}</div>
+      {/* <div>Input Value in React: {inputValue}</div> */}
     </div>
   );
 };
