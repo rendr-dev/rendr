@@ -14,7 +14,14 @@ const App = () => {
 <body style="background-color: #F5F5DC; margin: 20px;">
   <header id="header" style="background-color: #4169E1; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; border: 2px solid #333;">
     <div style="display: flex; align-items: center; margin: 10px;">
-      <a style="font-weight: bold; font-size: larger; color: beige; font-family: 'Courier New', monospace;">  rendr dev - homepage canvas</a>
+      <a style="font-weight: bold; font-size: larger; color: beige; font-family: 'Courier New', monospace;">rendr dev - homepage 
+        <span style="color: red;">c</span>
+        <span style="color: orange;">a</span>
+        <span style="color: yellow;">n</span>
+        <span style="color: #013220;">v</span>
+        <span style="color: blue;">a</span>
+        <span style="color: indigo;">s</span>
+      </a>
     </div>
     <a href="https://ohkq5aqkd1f.typeform.com/to/BuUm9pX2" target="_blank">
     <button style="background-color: orange; border: none; border-radius: 12px; padding: 10px 20px; color: white; font-weight: bold; margin-left: 10px;">Request the BETA</button>
