@@ -11,8 +11,8 @@ const App = () => {
   <link rel="stylesheet" href="styles.css">
   <title>Rendr Dev</title>
 </head>
-<body style="background-color: #F5F5DC;">
-  <header id="header" style="background-color: #4169E1; border-radius: 10px; display: flex; align-items: center; justify-content: space-between;">
+<body style="background-color: #F5F5DC; margin: 20px;">
+  <header id="header" style="background-color: #4169E1; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; border: 2px solid #333;">
     <div style="display: flex; align-items: center;">
       <img src="logo.png" alt="Rendr Dev Logo" style="margin-right: 10px;">
       <h1>Rendr Dev</h1>
@@ -20,12 +20,53 @@ const App = () => {
     <button style="background-color: orange; border: none; border-radius: 12px; padding: 10px 20px; color: white; font-weight: bold;">Join the Waitlist</button>
   </header>
   <hr>
+  <section id="intro" style="background-color: rgba(0,0,128,0.7); border-radius: 10px; border: 2px solid #333;">
+      <div class="icon-and-text">
+          <h1><span class="emoji" style="font-size: 36px;">&#128075</span></h1>
+          <h1 style="color: white">welcome to <span style="color: #0094FF; font-family: 'Source Code Pro', monospace;">rendr</span> - front-end engineering made easy.</h1>
+      </div>
+      <h3 style="margin-left: 3.25%; color: lightgray;"><i>Create</i>, <i>modify</i>, and <i>re-render</i> webpages by <u>directly interacting with components</u> and making creative changes with AI.</h3>
+
+      <div style="margin:12px" />      
+      
+      <div class="icon-and-text" style="margin-bottom:12px">
+        <div class="circle">1</div>
+        <h3 style="color: white; font-weight: normal; margin-top: 7px"> To use rendr, move your mouse <span class="emoji">&#x1f42d</span>around to target <span class="emoji">&#x1f3af</span>any component of this webpage you'd like to change. </h3>
+      </div>
+
+      <div class="icon-and-text" style="margin-bottom:12px">
+        <div class="circle">2</div>
+        <h3 style="color: white; font-weight: normal; margin-top: 7px"> Select any target component, and click on it to interact. </h3>
+      </div>
+
+      <div class="icon-and-text" style="margin-bottom:12px">
+        <div class="circle">3</div>
+        <h3 style="color: white; font-weight: normal; margin-top: 7px"> To make a simple UI change <span class="emoji">&#x1f3a8</span>, type a specific prompt <span class="emoji">&#x1f4dd</span> for the targeted component (ie. Add more material to this section about hackathons). </h3>
+      </div>
+        
+
+      <div class="icon-and-text" style="margin-bottom:12px">
+        <div class="circle">4</div>
+        <h3 style="color: white; font-weight: normal; margin-top: 7px"> Hit enter to submit the changes! Wait up to 20-30 seconds for the change (we hope to optimize later! <span class="emoji">&#x1f4a8</span>). </h3>
+      </div>
+      
+
+      <div class="icon-and-text" style="margin-bottom:12px">
+        <div class="circle">5</div>
+        <h3 style="color: white; font-weight: normal; margin-top: 7px"> Don't fret if you run into creator's block! You can also click on "Suggest Designs" <span class="emoji">&#x1f5bc</span> to recommend generated image and text suggestions.</h3>
+      </div>
+
+      <div class="icon-and-text" style="margin-bottom:12px">
+      <div class="circle">6</div>
+      <h3 style="color: white; font-weight: bold; margin-top: 7px">Key commands: [enter] - submit prompt for changing UI, [esc] - close toolbar, [command-x] - saves your changed UI design as HTML + CSS files</h3>
+    </div>
+    </section>
   <section id="about">
     <h2>About Rendr Dev</h2>
     <p>Rendr Dev is a development tool designed for fast, fluid frontend engineering. It provides a seamless experience for developers, enabling them to create dynamic, responsive, and high-performance web applications with ease.</p>
   </section>
   <hr>
-  <footer style="background-color: #4169E1; border-radius: 10px; padding: 20px; color: white; text-align: center;">
+  <footer style="background-color: #4169E1; border-radius: 10px; padding: 20px; color: white; text-align: center; border: 2px solid #333;">
     <h2>Contact Us</h2>
     <p>Email: johnrho [at] college [dot] harvard [dot] edu</p>
   </footer>
