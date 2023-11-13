@@ -9,12 +9,12 @@ const App = () => {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
-  <title>Rendr Dev</title>
+  <title>Rendr Dev - Homepage Canvas</title>
 </head>
 <body style="background-color: #F5F5DC; margin: 20px;">
   <header id="header" style="background-color: #4169E1; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; border: 2px solid #333;">
     <div style="display: flex; align-items: center; margin: 10px;">
-      <a style="font-weight: bold; font-size: larger; color: beige; font-family: 'Courier New', monospace;">  rendr dev</a>
+      <a style="font-weight: bold; font-size: larger; color: beige; font-family: 'Courier New', monospace;">  rendr dev - homepage canvas</a>
     </div>
     <a href="https://ohkq5aqkd1f.typeform.com/to/BuUm9pX2" target="_blank">
     <button style="background-color: orange; border: none; border-radius: 12px; padding: 10px 20px; color: white; font-weight: bold; margin-left: 10px;">Request the BETA</button>
