@@ -9,57 +9,26 @@ const App = () => {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
-  <title>Paul's Flower Shop</title>
+  <title>Rendr Dev</title>
 </head>
-<body>
-  <header id="header" style="border-radius: 10px;">
-    <h1>Paul's Flower Shop</h1>
-  </header>
-
-  <section id="featured-flowers">
-    <h2>Featured Flowers</h2>
-    <div id="flower-list">
-      <div class="flower-item">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Rosa_Ingrid_Bergman_2018-07-16_6611_%28cropped%29.jpg" alt="Rose">
-        <h3>Rose</h3>
-        <p>A classic symbol of love and beauty.</p>
-        <a href="#">Buy Now</a>
-      </div>
-      <div class="flower-item">
-        <img src="https://www.colorblends.com/wp-content/uploads/2020/01/1504_BestPurple_CGC9830sq-1024x1024.jpg" alt="Tulip">
-        <h3>Tulip</h3>
-        <p>Bright and perfect for spring.</p>
-        <a href="#">Buy Now</a>
-      </div>
-      <div class="flower-item">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Lilium_longiflorum_%28Easter_Lily%29.JPG/1200px-Lilium_longiflorum_%28Easter_Lily%29.JPG" alt="Lily">
-        <h3>Lily</h3>
-        <p>Elegant and fragrant.</p>
-        <a href="#">Buy Now</a>
-      </div>
-      <!-- More flowers can be added similarly -->
+<body style="background-color: #F5F5DC;">
+  <header id="header" style="background-color: #4169E1; border-radius: 10px; display: flex; align-items: center; justify-content: space-between;">
+    <div style="display: flex; align-items: center;">
+      <img src="logo.png" alt="Rendr Dev Logo" style="margin-right: 10px;">
+      <h1>Rendr Dev</h1>
     </div>
-</section>
-
-
+    <button style="background-color: orange; border: none; border-radius: 12px; padding: 10px 20px; color: white; font-weight: bold;">Join the Waitlist</button>
+  </header>
+  <hr>
   <section id="about">
-    <h2>About Our Shop</h2>
-    <p>We offer a wide variety of fresh flowers for all occasions. From birthdays to weddings, our flowers are perfect for every event.</p>
+    <h2>About Rendr Dev</h2>
+    <p>Rendr Dev is a development tool designed for fast, fluid frontend engineering. It provides a seamless experience for developers, enabling them to create dynamic, responsive, and high-performance web applications with ease.</p>
   </section>
-
-  <section id="contact">
+  <hr>
+  <footer style="background-color: #4169E1; border-radius: 10px; padding: 20px; color: white; text-align: center;">
     <h2>Contact Us</h2>
-    <form>
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" style="border-radius: 10px; border-color: black;">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" style="border-radius: 10px; border-color: black;">
-      <label for="message">Message:</label>
-      <input type="message" id="message" name="message" style="border-radius: 10px; border-color: black;"></input>
-      <div style="margin:10px"/>
-      <input type="submit" value="Send" style="background-color: black; border-radius: 10px; border-color: black;">
-    </form>
-  </section>
+    <p>Email: johnrho [at] college [dot] harvard [dot] edu</p>
+  </footer>
 </body>
 </html>
 
@@ -67,10 +36,8 @@ const App = () => {
   var cssString = `
   /* Header styles */
 #header {
-  background-color: #0094FF;
   color: #fff;
   padding: 20px;
-  text-align: center;
 }
 
 body {
@@ -163,6 +130,7 @@ input[type="submit"] {
     `${htmlString}<style>${cssString}</style>`
   );
   const [clicked, setClicked] = useState(false);
+  const [loading, setLoading] = useState(false); // New state for loading animation
 
   // Function to switch to the next image
   const nextImage = () => {
@@ -499,6 +467,7 @@ input[type="submit"] {
               if (existingBox) {
                 existingBox.remove();
               }
+              setLoading(false);
             })
             .catch((error) => {
               console.error("Error fetching result:", error);
@@ -510,6 +479,8 @@ input[type="submit"] {
           setBoundingBox(null);
           if (event.key === "Enter") {
             // Change cursor to loading animation
+            setLoading(true);
+            console.log("enter clicked");
             document.body.style.cursor = "wait";
 
             if (
@@ -592,6 +563,16 @@ input[type="submit"] {
     });
   }, [boundingBox, showPopup, imageUrl, imageUrl2, imageUrl3]);
 
+  const [loadingText, setLoadingText] = useState("Loading");
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLoadingText((prevText) =>
+        prevText === "Loading" ? "Loading..." : "Loading"
+      );
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div style={{ margin: 0, padding: 0 }}>
       <iframe
@@ -617,7 +598,6 @@ input[type="submit"] {
             padding: "20px",
             flexDirection: "column",
             justifyContent: "space-between",
-            animation: "fadeIn 0.5s",
             borderRadius: "15px",
             boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
             overflow: "auto",
@@ -798,6 +778,23 @@ input[type="submit"] {
         </div>
       )}
       {/* <div>Input Value in React: {inputValue}</div> */}
+      {loading && (
+        <div
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            padding: "20px",
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
+            color: "white",
+            borderRadius: "10px",
+            textAlign: "center",
+          }}
+        >
+          {loadingText}
+        </div>
+      )}
     </div>
   );
 };
