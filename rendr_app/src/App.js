@@ -13,62 +13,67 @@ const App = () => {
 </head>
 <body style="background-color: #F5F5DC; margin: 20px;">
   <header id="header" style="background-color: #4169E1; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; border: 2px solid #333;">
-    <div style="display: flex; align-items: center;">
-      <img src="logo.png" alt="Rendr Dev Logo" style="margin-right: 10px;">
-      <h1>Rendr Dev</h1>
+    <div style="display: flex; align-items: center; margin: 10px;">
+      <a style="font-weight: bold; font-size: larger; color: beige; font-family: 'Courier New', monospace;">  rendr dev</a>
     </div>
-    <button style="background-color: orange; border: none; border-radius: 12px; padding: 10px 20px; color: white; font-weight: bold;">Join the Waitlist</button>
+    <a href="https://ohkq5aqkd1f.typeform.com/to/BuUm9pX2" target="_blank">
+    <button style="background-color: orange; border: none; border-radius: 12px; padding: 10px 20px; color: white; font-weight: bold; margin-left: 10px;">Request the BETA</button>
+    </a>
   </header>
   <hr>
-  <section id="intro" style="background-color: rgba(0,0,128,0.7); border-radius: 10px; border: 2px solid #333;">
+  <section id="intro" style="background-color: beige; border-radius: 10px;">
       <div class="icon-and-text">
-          <h1><span class="emoji" style="font-size: 36px;">&#128075</span></h1>
-          <h1 style="color: white">welcome to <span style="color: #0094FF; font-family: 'Source Code Pro', monospace;">rendr</span> - front-end engineering made easy.</h1>
+          <h1><span class="emoji" style="font-size: 36px; margin: 10px 0;">&#128075</span> welcome to <span style="color: #0094FF; font-family: 'Source Code Pro', monospace;">rendr</span> - front-end engineering made easy.</h1>
       </div>
-      <h3 style="margin-left: 3.25%; color: lightgray;"><i>Create</i>, <i>modify</i>, and <i>re-render</i> webpages by <u>directly interacting with components</u> and making creative changes with AI.</h3>
+      <h3 style="margin-left: 3.25%; color: darkgray;"><i>Create</i>, <i>modify</i>, and <i>re-render</i> webpages by <u>directly interacting with components</u> and making creative changes with AI.</h3>
 
       <div style="margin:12px" />      
       
       <div class="icon-and-text" style="margin-bottom:12px">
-        <div class="circle">1</div>
-        <h3 style="color: white; font-weight: normal; margin-top: 7px"> To use rendr, move your mouse <span class="emoji">&#x1f42d</span>around to target <span class="emoji">&#x1f3af</span>any component of this webpage you'd like to change. </h3>
+        <div class="circle" style="background-color: navy; color: beige; font-weight: bold; border: 1px solid #000; border-radius: 50%; width: 20px; height: 20px; text-align: center; display: inline-block; margin-right: 10px;">1</div>
+        <h3 style="color: navy; font-weight: normal; margin-top: 7px; display: inline-block;"> To use rendr, move your mouse <span class="emoji">&#x1f42d</span>around to target <span class="emoji">&#x1f3af</span>any component of this webpage you'd like to change. </h3>
       </div>
 
       <div class="icon-and-text" style="margin-bottom:12px">
-        <div class="circle">2</div>
-        <h3 style="color: white; font-weight: normal; margin-top: 7px"> Select any target component, and click on it to interact. </h3>
+        <div class="circle" style="background-color: navy; color: beige; font-weight: bold; border: 1px solid #000; border-radius: 50%; width: 20px; height: 20px; text-align: center; display: inline-block; margin-right: 10px;">2</div>
+        <h3 style="color: navy; font-weight: normal; margin-top: 7px; display: inline-block;"> Select any target component, and click on it to interact. </h3>
       </div>
 
       <div class="icon-and-text" style="margin-bottom:12px">
-        <div class="circle">3</div>
-        <h3 style="color: white; font-weight: normal; margin-top: 7px"> To make a simple UI change <span class="emoji">&#x1f3a8</span>, type a specific prompt <span class="emoji">&#x1f4dd</span> for the targeted component (ie. Add more material to this section about hackathons). </h3>
+        <div class="circle" style="background-color: navy; color: beige; font-weight: bold; border: 1px solid #000; border-radius: 50%; width: 20px; height: 20px; text-align: center; display: inline-block; margin-right: 10px;">3</div>
+        <h3 style="color: navy; font-weight: normal; margin-top: 7px; display: inline-block;"> To make a simple UI change <span class="emoji">&#x1f3a8</span>, type a specific prompt <span class="emoji">&#x1f4dd</span> for the targeted component (ie. Add more material to this section about hackathons). </h3>
       </div>
         
 
       <div class="icon-and-text" style="margin-bottom:12px">
-        <div class="circle">4</div>
-        <h3 style="color: white; font-weight: normal; margin-top: 7px"> Hit enter to submit the changes! Wait up to 20-30 seconds for the change (we hope to optimize later! <span class="emoji">&#x1f4a8</span>). </h3>
+        <div class="circle" style="background-color: navy; color: beige; font-weight: bold; border: 1px solid #000; border-radius: 50%; width: 20px; height: 20px; text-align: center; display: inline-block; margin-right: 10px;">4</div>
+        <h3 style="color: navy; font-weight: normal; margin-top: 7px; display: inline-block;"> Hit enter to submit the changes! Wait up to 20-30 seconds for the change (we hope to optimize later! <span class="emoji">&#x1f4a8</span>). </h3>
       </div>
       
 
       <div class="icon-and-text" style="margin-bottom:12px">
-        <div class="circle">5</div>
-        <h3 style="color: white; font-weight: normal; margin-top: 7px"> Don't fret if you run into creator's block! You can also click on "Suggest Designs" <span class="emoji">&#x1f5bc</span> to recommend generated image and text suggestions.</h3>
+        <div class="circle" style="background-color: navy; color: beige; font-weight: bold; border: 1px solid #000; border-radius: 50%; width: 20px; height: 20px; text-align: center; display: inline-block; margin-right: 10px;">5</div>
+        <h3 style="color: navy; font-weight: normal; margin-top: 7px; display: inline-block;"> Don't fret if you run into creator's block! You can also click on "Suggest Designs" <span class="emoji">&#x1f5bc</span> to recommend generated image and text suggestions.</h3>
       </div>
 
       <div class="icon-and-text" style="margin-bottom:12px">
-      <div class="circle">6</div>
-      <h3 style="color: white; font-weight: bold; margin-top: 7px">Key commands: [enter] - submit prompt for changing UI, [esc] - close toolbar, [command-x] - saves your changed UI design as HTML + CSS files</h3>
+      <div class="circle" style="background-color: navy; color: beige; font-weight: bold; border: 1px solid #000; border-radius: 50%; width: 20px; height: 20px; text-align: center; display: inline-block; margin-right: 10px;">6</div>
+      <h3 style="color: navy; font-weight: bold; margin-top: 7px; display: inline-block;">Key commands: [enter] - submit prompt for changing UI, [esc] - close toolbar, [command-x] - saves your changed UI design as HTML + CSS files</h3>
     </div>
     </section>
-  <section id="about">
-    <h2>About Rendr Dev</h2>
-    <p>Rendr Dev is a development tool designed for fast, fluid frontend engineering. It provides a seamless experience for developers, enabling them to create dynamic, responsive, and high-performance web applications with ease.</p>
+  <hr>
+  <section id="about" style="background: linear-gradient(to right, yellow , orange);">
+    <h2><span class="emoji">&#x1F4BB;</span> About <i>Rendr Dev</i></h2>
+    <p style="color: navy;"> <i>Rendr Dev</i> is a <u>development tool</u> designed for fast, fluid <u>frontend engineering</u>. It provides a seamless experience for developers, enabling them to create dynamic, responsive, and high-performance web applications with ease. Our goal is to create a seamless, <u>no-code website maintenance engine</u>.</p>
   </section>
   <hr>
   <footer style="background-color: #4169E1; border-radius: 10px; padding: 20px; color: white; text-align: center; border: 2px solid #333;">
     <h2>Contact Us</h2>
     <p>Email: johnrho [at] college [dot] harvard [dot] edu</p>
+    <p>Made with ❤️ using Rendr Dev!</p>
+    <a href="https://www.linkedin.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/linkedin.png"/></a>
+    <a href="https://www.twitter.com" target="_blank"><img src="https://img.icons8.com/color/48/000000/twitter.png"/></a>
+    <p>© 2024 Rendr Dev. All rights reserved.</p>
   </footer>
 </body>
 </html>
